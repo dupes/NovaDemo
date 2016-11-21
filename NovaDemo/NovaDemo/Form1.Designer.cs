@@ -42,7 +42,6 @@
             this.EventID,
             this.StartTime,
             this.Duration});
-			this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DGEvent.Location = new System.Drawing.Point(0, 0);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.Size = new System.Drawing.Size(493, 320);
@@ -75,6 +74,7 @@
 			this.Controls.Add(this.DGEvent);
 			this.Name = "Form1";
 			this.Text = "Form1";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).EndInit();
 			this.ResumeLayout(false);

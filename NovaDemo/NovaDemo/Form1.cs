@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Net;
 using System.IO;
 using System.Threading;
+using Newtonsoft.Json;
+
 
 namespace NovaDemo
 {
@@ -24,14 +26,13 @@ namespace NovaDemo
 			InitializeComponent();
 			// m_listener.Prefixes.Add("http://localhost:8383/newevent/");
 			// m_listener.Prefixes.Add("http://127.0.0.1:8383/newevent/");
-			m_listener.Prefixes.Add("http://141.219.240.248:7999/newevent/");
+			m_listener.Prefixes.Add("http://*:8383/newevent/");
 			// m_listener.Prefixes.Add("http://10.0.2.15:83/newevent/");
 		}
 
 
 		private void RequestHandler()
 		{
-			Console.WriteLine("requestHandler called");
 			while (m_listener.IsListening)
 			{
 				IAsyncResult context = m_listener.BeginGetContext(new AsyncCallback(ListenerCallback), m_listener);
@@ -41,10 +42,21 @@ namespace NovaDemo
 			m_isRequestHandlerExited = true;
 		}
 
+		private String GetPayload(HttpListenerRequest request)
+		{
+			long dataLength = request.ContentLength64;
+
+			string result;
+			using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
+			{
+				result = reader.ReadToEnd();
+			}
+
+			return result;
+		}
 
 		private void ListenerCallback(IAsyncResult ar)
 		{
-			Console.WriteLine("ListenerCallback");
 			// TODO: what is the proper check here
 			// TODO: add try catch
 			// not sure what the proper check is here but this code throws when the 
@@ -55,20 +67,10 @@ namespace NovaDemo
 
 				HttpListenerContext context = listener.EndGetContext(ar);
 
-				HttpListenerRequest request = context.Request;
-
-				long dataLength = request.ContentLength64;
-
-				string text;
-				using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
-				{
-					text = reader.ReadToEnd();
-				}
+				Request.NewEvent newEvent = JsonConvert.DeserializeObject<Request.NewEvent>(GetPayload(context.Request));
 
 				// DGEvent.Rows.Add(text, "aoeu", "aoeu");
-				DGEvent.BeginInvoke((MethodInvoker)delegate () { DGEvent.Rows.Add(text, "aoeu", "aoeu"); });
-
-				Console.WriteLine("size of buffer " + text);
+				DGEvent.BeginInvoke((MethodInvoker)delegate () { DGEvent.Rows.Add(newEvent.EventId, newEvent.DtStartTimet, newEvent.DurationInSeconds); });
 			}
 		}
 
@@ -77,7 +79,6 @@ namespace NovaDemo
 		{
 			try
 			{
-				Console.WriteLine("Form1_Load");
 				// start the listener first... 
 				m_listener.Start();
 
