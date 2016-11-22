@@ -54,7 +54,8 @@ namespace NovaDemo
 
 			if (m_eventHandlers.Keys.Contains(key))
 			{
-				m_eventHandlers[key](payload);
+				// cause the specific handlers to be executed in the GUI thread
+				this.BeginInvoke((MethodInvoker)delegate() { m_eventHandlers[key](payload); });
 			}
 			else
 			{
@@ -67,62 +68,31 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
-			// update GUI on GUI thread
-			DGEvent.BeginInvoke
-			(
-				(MethodInvoker)delegate ()
-				{
-					DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
-				}
-			);
+			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
 		}
 
 
 		private void HandlePayload_StartEvent(string payload)
 		{
-			LabelVenStatus.BeginInvoke
-			(
-				(MethodInvoker) delegate()
-				{
-					LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
-				}
-			);
+			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
 		}
 
 
 		private void HandlePayload_ModifyEvent(string payload)
 		{
-			LabelVenStatus.BeginInvoke
-			(
-				(MethodInvoker)delegate ()
-				{
-					LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
-				}
-			);
+			LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
 		}
 
 
 		private void HandlePayload_EndEvent(string payload)
 		{
-			LabelVenStatus.BeginInvoke
-			(
-				(MethodInvoker)delegate ()
-				{
-					LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
-				}
-			);
+			LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
 		}
 
 
 		private void HandlePayload_CancelEvent(string payload)
 		{
-			LabelVenStatus.BeginInvoke
-			(
-				(MethodInvoker)delegate ()
-				{
-					LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
-				}
-			);
+			LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
 		}
 
 
