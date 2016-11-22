@@ -31,7 +31,7 @@ namespace NovaDemo
 			m_eventHandlers.Add("newevent", new Endpoint.NewEvent(DGEvent));
 
 			// add endpoints to listener
-			m_listener.Prefixes.Add("http://*:8383/newevent/");
+			m_listener.Prefixes.Add("http://*:8383/");
 		}
 
 		private void RequestHandler()
