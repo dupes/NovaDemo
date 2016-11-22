@@ -24,12 +24,21 @@ namespace NovaDemo
 
 		private string m_venLabelBase;
 
+		enum DGEventCells
+		{
+			EventId,
+			StartTime,
+			Duration,
+			Status
+		}
+
 
 		public MainForm()
 		{
 			InitializeComponent();
 
 			m_venLabelBase = LabelVenStatus.Text;
+			LabelVenStatus.Text = m_venLabelBase + " NO EVENTS";
 
 			m_listener = new Listener.Listener();
 
@@ -41,6 +50,7 @@ namespace NovaDemo
 			m_eventHandlers.Add("modifyevent", new HandlePayload(HandlePayload_ModifyEvent));
 			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
+
 		}
 
 
@@ -68,24 +78,47 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
+			// LabelVenStatus.Text = m_venLabelBase + " EVENT PENDING";
 			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
 		}
 
 
 		private void HandlePayload_StartEvent(string payload)
 		{
+			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
+
+			foreach (DataGridViewRow row in DGEvent.Rows)
+			{
+				if (row.Cells[(int)DGEventCells.EventId].Value.Equals(newEvent.EventId))
+				{
+					row.Cells[(int)DGEventCells.Status].Value = "active";
+				}
+			}
+
 			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
 		}
 
 
 		private void HandlePayload_ModifyEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
+			// LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
 		}
 
 
 		private void HandlePayload_EndEvent(string payload)
 		{
+			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
+
+			foreach (DataGridViewRow row in DGEvent.Rows)
+			{
+				Console.WriteLine(row.Cells[(int)DGEventCells.EventId].Value + " == " + endEvent.EventId);
+
+				if (row.Cells[(int)DGEventCells.EventId].Value.Equals(endEvent.EventId))
+				{
+					row.Cells[(int)DGEventCells.Status].Value = "complete";
+				}
+			}
+
 			LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
 		}
 
