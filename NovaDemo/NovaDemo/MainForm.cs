@@ -18,7 +18,9 @@ namespace NovaDemo
 	{
 		private Listener.Listener m_listener = null;
 
-		private Dictionary<String, Endpoint.AbstractEvent> m_eventHandlers = null;
+		private Dictionary<String, HandlePayload> m_eventHandlers = null;
+
+		private delegate void HandlePayload(string payload);
 
 
 		public MainForm()
@@ -27,13 +29,16 @@ namespace NovaDemo
 
 			m_listener = new Listener.Listener();
 
-			m_eventHandlers = new Dictionary<string, Endpoint.AbstractEvent>();
+			m_eventHandlers = new Dictionary<string, HandlePayload>();
 
 			// map the names of the endpoints to objects that can handle the request
-			m_eventHandlers.Add("newevent", new EndpointHandler.NewEvent(DGEvent));
+			m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
 		}
 
 
+		/*
+		 * Function called by the listener when a call to an endpoint has been made
+		 */
 		private void HandleRequest(Uri uri, string payload)
 		{
 			// get the endpoint name to access dictionary
@@ -41,12 +46,27 @@ namespace NovaDemo
 
 			if (m_eventHandlers.Keys.Contains(key))
 			{
-				m_eventHandlers[key].Handle(payload);
+				m_eventHandlers[key](payload);
 			}
 			else
 			{
 				Console.WriteLine("endpoint '" + key + "' did not match key");
 			}
+		}
+
+
+		private void HandlePayload_NewEvent(string payload)
+		{
+			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
+
+			// update GUI on GUI thread
+			DGEvent.BeginInvoke
+			(
+				(MethodInvoker)delegate ()
+				{
+					DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
+				}
+			);
 		}
 
 

@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace NovaDemo.Endpoint
+namespace NovaDemo
 {
-	public abstract class AbstractEvent
+	class Util
 	{
-		public abstract void Handle(String payload);
-
-		public DateTime FromEpoch(long secondsFromEpoch)
+		public static DateTime FromEpoch(long secondsFromEpoch)
 		{
 			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch));
 		}
-
 	}
 }
