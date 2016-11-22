@@ -9,13 +9,6 @@ namespace NovaDemo.Endpoint
 {
 	public abstract class AbstractEvent
 	{
-		protected DataGridView DGEvent { get; set; }
-
-		public AbstractEvent(DataGridView DGEvent)
-		{
-			this.DGEvent = DGEvent;
-		}
-
 		public abstract void Handle(String payload);
 
 		public DateTime FromEpoch(long secondsFromEpoch)

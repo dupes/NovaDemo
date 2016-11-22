@@ -10,8 +10,11 @@ namespace NovaDemo.Endpoint
 {
 	class NewEvent : Endpoint.AbstractEvent
 	{
-		public NewEvent(DataGridView DGEvent) : base(DGEvent)
+		private DataGridView DGEvent { get; set; }
+
+		public NewEvent(DataGridView DGEvent)
 		{
+			this.DGEvent = DGEvent;
 		}
 
 		public override void Handle(string payload)
