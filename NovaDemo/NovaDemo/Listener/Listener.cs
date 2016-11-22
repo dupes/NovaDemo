@@ -99,6 +99,9 @@ namespace NovaDemo.Listener
 
 				Console.WriteLine("handling call to url " + context.Request.RawUrl);
 				m_requestHandler(context.Request.Url, GetPayload(context.Request));
+
+				// not sending anything in the response
+				context.Response.OutputStream.Close();
 			}
 		}
 	}
