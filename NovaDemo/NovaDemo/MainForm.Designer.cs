@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
 			this.DGEvent = new System.Windows.Forms.DataGridView();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.LabelVenStatus = new System.Windows.Forms.Label();
 			this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.LabelVenStatus = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -52,33 +52,8 @@
 			this.DGEvent.Location = new System.Drawing.Point(3, 47);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
-			this.DGEvent.Size = new System.Drawing.Size(487, 270);
+			this.DGEvent.Size = new System.Drawing.Size(587, 270);
 			this.DGEvent.TabIndex = 0;
-			// 
-			// EventID
-			// 
-			this.EventID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.EventID.HeaderText = "Event ID";
-			this.EventID.Name = "EventID";
-			this.EventID.ReadOnly = true;
-			// 
-			// StartTime
-			// 
-			this.StartTime.HeaderText = "Start Time";
-			this.StartTime.Name = "StartTime";
-			this.StartTime.ReadOnly = true;
-			// 
-			// Duration
-			// 
-			this.Duration.HeaderText = "Duration";
-			this.Duration.Name = "Duration";
-			this.Duration.ReadOnly = true;
-			// 
-			// Status
-			// 
-			this.Status.HeaderText = "Status";
-			this.Status.Name = "Status";
-			this.Status.ReadOnly = true;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -92,7 +67,7 @@
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 13.75F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 86.25F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(493, 320);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(593, 320);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// LabelVenStatus
@@ -108,11 +83,37 @@
 			this.LabelVenStatus.Text = "Ven Event Status:";
 			this.LabelVenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// EventID
+			// 
+			this.EventID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.EventID.HeaderText = "Event ID";
+			this.EventID.Name = "EventID";
+			this.EventID.ReadOnly = true;
+			// 
+			// StartTime
+			// 
+			this.StartTime.HeaderText = "Start Time";
+			this.StartTime.Name = "StartTime";
+			this.StartTime.ReadOnly = true;
+			this.StartTime.Width = 150;
+			// 
+			// Duration
+			// 
+			this.Duration.HeaderText = "Duration";
+			this.Duration.Name = "Duration";
+			this.Duration.ReadOnly = true;
+			// 
+			// Status
+			// 
+			this.Status.HeaderText = "Status";
+			this.Status.Name = "Status";
+			this.Status.ReadOnly = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(493, 320);
+			this.ClientSize = new System.Drawing.Size(593, 320);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "MainForm";
 			this.Text = "Form1";
@@ -128,12 +129,12 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGEvent;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Label LabelVenStatus;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.Label LabelVenStatus;
 	}
 }
 
