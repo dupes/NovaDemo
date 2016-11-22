@@ -32,18 +32,23 @@
 			this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// DGEvent
 			// 
+			this.DGEvent.AllowUserToAddRows = false;
 			this.DGEvent.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.DGEvent.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.EventID,
             this.StartTime,
-            this.Duration});
+            this.Duration,
+            this.Status});
+			this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DGEvent.Location = new System.Drawing.Point(0, 0);
 			this.DGEvent.Name = "DGEvent";
+			this.DGEvent.ReadOnly = true;
 			this.DGEvent.Size = new System.Drawing.Size(493, 320);
 			this.DGEvent.TabIndex = 0;
 			// 
@@ -66,6 +71,12 @@
 			this.Duration.Name = "Duration";
 			this.Duration.ReadOnly = true;
 			// 
+			// Status
+			// 
+			this.Status.HeaderText = "Status";
+			this.Status.Name = "Status";
+			this.Status.ReadOnly = true;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -84,9 +95,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGEvent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-    }
+		private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+	}
 }
 

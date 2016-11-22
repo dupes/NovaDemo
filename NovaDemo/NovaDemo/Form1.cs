@@ -24,12 +24,13 @@ namespace NovaDemo
 		public Form1()
 		{
 			InitializeComponent();
-			// m_listener.Prefixes.Add("http://localhost:8383/newevent/");
-			// m_listener.Prefixes.Add("http://127.0.0.1:8383/newevent/");
 			m_listener.Prefixes.Add("http://*:8383/newevent/");
-			// m_listener.Prefixes.Add("http://10.0.2.15:83/newevent/");
 		}
 
+		private DateTime FromEpoch(long secondsFromEpoch)
+		{
+			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch));
+		}
 
 		private void RequestHandler()
 		{
@@ -70,7 +71,7 @@ namespace NovaDemo
 				Request.NewEvent newEvent = JsonConvert.DeserializeObject<Request.NewEvent>(GetPayload(context.Request));
 
 				// DGEvent.Rows.Add(text, "aoeu", "aoeu");
-				DGEvent.BeginInvoke((MethodInvoker)delegate () { DGEvent.Rows.Add(newEvent.EventId, newEvent.DtStartTimet, newEvent.DurationInSeconds); });
+				DGEvent.BeginInvoke((MethodInvoker)delegate () { DGEvent.Rows.Add(newEvent.EventId, FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending"); });
 			}
 		}
 
