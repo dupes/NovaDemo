@@ -12,24 +12,26 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 
-
 namespace NovaDemo
 {
 	public partial class Form1 : Form
 	{
 		private HttpListener m_listener = new HttpListener();
-		Thread m_listenerThread = null;
-		bool m_isRequestHandlerExited = false;
+		private Thread m_listenerThread = null;
+		private bool m_isRequestHandlerExited = false;
+		private Dictionary<String, Endpoint.AbstractEvent> m_eventHandlers = null;
 
 		public Form1()
 		{
 			InitializeComponent();
-			m_listener.Prefixes.Add("http://*:8383/newevent/");
-		}
 
-		private DateTime FromEpoch(long secondsFromEpoch)
-		{
-			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch));
+			m_eventHandlers = new Dictionary<string, Endpoint.AbstractEvent>();
+
+			// map the names of the endpoints to objects that can handle the request
+			m_eventHandlers.Add("newevent", new Endpoint.NewEvent(DGEvent));
+
+			// add endpoints to listener
+			m_listener.Prefixes.Add("http://*:8383/newevent/");
 		}
 
 		private void RequestHandler()
@@ -68,10 +70,19 @@ namespace NovaDemo
 
 				HttpListenerContext context = listener.EndGetContext(ar);
 
-				Request.NewEvent newEvent = JsonConvert.DeserializeObject<Request.NewEvent>(GetPayload(context.Request));
+				Console.WriteLine("handling call to url " + context.Request.RawUrl);
 
-				// DGEvent.Rows.Add(text, "aoeu", "aoeu");
-				DGEvent.BeginInvoke((MethodInvoker)delegate () { DGEvent.Rows.Add(newEvent.EventId, FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending"); });
+				// get the endpoint name to access dictionary
+				string key = Path.GetFileName(context.Request.RawUrl.TrimEnd('/', '\\'));
+
+				if (m_eventHandlers.Keys.Contains(key))
+				{
+					m_eventHandlers[key].Handle(GetPayload(context.Request));
+				}
+				else
+				{
+					Console.WriteLine("endpoint '" + key + "' did not match key");
+				}
 			}
 		}
 
