@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace NovaDemo.Endpoint
+namespace NovaDemo.EndpointHandler
 {
 	class NewEvent : Endpoint.AbstractEvent
 	{

@@ -51,14 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Listener\Listener.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Endpoint\AbstractEvent.cs" />
-    <Compile Include="Endpoint\NewEvent.cs" />
+    <Compile Include="EndpointHandler\AbstractEvent.cs" />
+    <Compile Include="EndpointHandler\NewEvent.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestData\NewEvent.cs" />
