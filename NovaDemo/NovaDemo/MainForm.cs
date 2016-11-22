@@ -14,14 +14,14 @@ using Newtonsoft.Json;
 
 namespace NovaDemo
 {
-	public partial class Form1 : Form
+	public partial class MainForm : Form
 	{
 		private HttpListener m_listener = new HttpListener();
 		private Thread m_listenerThread = null;
 		private bool m_isRequestHandlerExited = false;
 		private Dictionary<String, Endpoint.AbstractEvent> m_eventHandlers = null;
 
-		public Form1()
+		public MainForm()
 		{
 			InitializeComponent();
 
