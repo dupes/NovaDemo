@@ -80,25 +80,49 @@ namespace NovaDemo
 
 		private void HandlePayload_StartEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
+			LabelVenStatus.BeginInvoke
+			(
+				(MethodInvoker) delegate()
+				{
+					LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
+				}
+			);
 		}
 
 
 		private void HandlePayload_ModifyEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
+			LabelVenStatus.BeginInvoke
+			(
+				(MethodInvoker)delegate ()
+				{
+					LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
+				}
+			);
 		}
 
 
 		private void HandlePayload_EndEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
+			LabelVenStatus.BeginInvoke
+			(
+				(MethodInvoker)delegate ()
+				{
+					LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
+				}
+			);
 		}
 
 
 		private void HandlePayload_CancelEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
+			LabelVenStatus.BeginInvoke
+			(
+				(MethodInvoker)delegate ()
+				{
+					LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
+				}
+			);
 		}
 
 

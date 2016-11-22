@@ -48,6 +48,7 @@
             this.StartTime,
             this.Duration,
             this.Status});
+			this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DGEvent.Location = new System.Drawing.Point(3, 47);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
@@ -107,13 +108,13 @@
 			this.LabelVenStatus.Text = "Ven Event Status:";
 			this.LabelVenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// Form1
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(493, 320);
 			this.Controls.Add(this.tableLayoutPanel1);
-			this.Name = "Form1";
+			this.Name = "MainForm";
 			this.Text = "Form1";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
