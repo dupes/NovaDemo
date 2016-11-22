@@ -19,7 +19,7 @@ namespace NovaDemo.Endpoint
 
 		public override void Handle(string payload)
 		{
-			Request.NewEvent newEvent = JsonConvert.DeserializeObject<Request.NewEvent>(payload);
+			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
 			// update 
 			DGEvent.BeginInvoke
