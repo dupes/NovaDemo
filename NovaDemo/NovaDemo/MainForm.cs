@@ -22,10 +22,14 @@ namespace NovaDemo
 
 		private delegate void HandlePayload(string payload);
 
+		private string m_venLabelBase;
+
 
 		public MainForm()
 		{
 			InitializeComponent();
+
+			m_venLabelBase = LabelVenStatus.Text;
 
 			m_listener = new Listener.Listener();
 
@@ -33,6 +37,10 @@ namespace NovaDemo
 
 			// map the names of the endpoints to objects that can handle the request
 			m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
+			m_eventHandlers.Add("startevent", new HandlePayload(HandlePayload_StartEvent));
+			m_eventHandlers.Add("modifyevent", new HandlePayload(HandlePayload_ModifyEvent));
+			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
+			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
 		}
 
 
@@ -67,6 +75,30 @@ namespace NovaDemo
 					DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
 				}
 			);
+		}
+
+
+		private void HandlePayload_StartEvent(string payload)
+		{
+			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
+		}
+
+
+		private void HandlePayload_ModifyEvent(string payload)
+		{
+			LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
+		}
+
+
+		private void HandlePayload_EndEvent(string payload)
+		{
+			LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
+		}
+
+
+		private void HandlePayload_CancelEvent(string payload)
+		{
+			LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
 		}
 
 
