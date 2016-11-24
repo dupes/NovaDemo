@@ -114,7 +114,12 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
-			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "");
+			// assume an event can only start if Nova sends a start event message, so 
+			// the status here will either be complete because the event start time 
+			// plus duration is in the past, or the event will be pending
+			string status = ((Util.FromEpoch(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.UtcNow) ? "complete" : "pending");
+
+			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
 
 			// and track the stored row in our dictionary (the row just added is the last row)
 			m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
