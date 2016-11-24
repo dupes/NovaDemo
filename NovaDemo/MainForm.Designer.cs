@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
 			this.DGEvent = new System.Windows.Forms.DataGridView();
-			this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.LabelVenStatus = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.LVEventLog = new System.Windows.Forms.ListView();
+			this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -56,32 +56,6 @@
 			this.DGEvent.ReadOnly = true;
 			this.DGEvent.Size = new System.Drawing.Size(576, 270);
 			this.DGEvent.TabIndex = 0;
-			// 
-			// EventID
-			// 
-			this.EventID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.EventID.HeaderText = "Event ID";
-			this.EventID.Name = "EventID";
-			this.EventID.ReadOnly = true;
-			// 
-			// StartTime
-			// 
-			this.StartTime.HeaderText = "Start Time";
-			this.StartTime.Name = "StartTime";
-			this.StartTime.ReadOnly = true;
-			this.StartTime.Width = 150;
-			// 
-			// Duration
-			// 
-			this.Duration.HeaderText = "Duration";
-			this.Duration.Name = "Duration";
-			this.Duration.ReadOnly = true;
-			// 
-			// Status
-			// 
-			this.Status.HeaderText = "Status";
-			this.Status.Name = "Status";
-			this.Status.ReadOnly = true;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -140,6 +114,33 @@
 			this.LVEventLog.View = System.Windows.Forms.View.Details;
 			this.LVEventLog.SizeChanged += new System.EventHandler(this.LVEventLog_SizeChanged);
 			// 
+			// EventID
+			// 
+			this.EventID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.EventID.HeaderText = "Event ID";
+			this.EventID.Name = "EventID";
+			this.EventID.ReadOnly = true;
+			// 
+			// StartTime
+			// 
+			this.StartTime.HeaderText = "Start Time";
+			this.StartTime.Name = "StartTime";
+			this.StartTime.ReadOnly = true;
+			this.StartTime.Width = 150;
+			// 
+			// Duration
+			// 
+			this.Duration.HeaderText = "Duration (seconds)";
+			this.Duration.Name = "Duration";
+			this.Duration.ReadOnly = true;
+			this.Duration.Width = 120;
+			// 
+			// Status
+			// 
+			this.Status.HeaderText = "Status";
+			this.Status.Name = "Status";
+			this.Status.ReadOnly = true;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -162,12 +163,12 @@
         private System.Windows.Forms.DataGridView DGEvent;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Label LabelVenStatus;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ListView LVEventLog;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ListView LVEventLog;
 	}
 }
 

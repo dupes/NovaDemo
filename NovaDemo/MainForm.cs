@@ -20,6 +20,8 @@ namespace NovaDemo
 
 		private Dictionary<String, HandlePayload> m_eventHandlers = null;
 
+		private Dictionary<String, DataGridViewRow> m_eventRows = null;
+
 		private delegate void HandlePayload(string payload);
 
 		private string m_venLabelBase;
@@ -52,6 +54,8 @@ namespace NovaDemo
 			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
 			m_eventHandlers.Add("deleteevent", new HandlePayload(HandlePayload_DeleteEvent));
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
+
+			m_eventRows = new Dictionary<string, DataGridViewRow>();
 
 			// create headers in the ListView for logging information
 			LVEventLog.Columns.Add("EventId", 150);
@@ -110,8 +114,11 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
-			// LabelVenStatus.Text = m_venLabelBase + " EVENT PENDING";
-			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
+			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "");
+
+			// and track the stored row in our dictionary (the row just added is the last row)
+			m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
+
 			LogEvent(newEvent.EventId, "new event");
 		}
 
@@ -120,12 +127,9 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
-			foreach (DataGridViewRow row in DGEvent.Rows)
+			if (m_eventRows.ContainsKey(newEvent.EventId))
 			{
-				if (row.Cells[(int)DGEventCells.EventId].Value.Equals(newEvent.EventId))
-				{
-					row.Cells[(int)DGEventCells.Status].Value = "active";
-				}
+				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Status].Value = "active";
 			}
 
 			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
@@ -146,7 +150,11 @@ namespace NovaDemo
 		{
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
-			// TODO: retrieve row from DataGridView and update the data
+			if (m_eventRows.ContainsKey(newEvent.EventId))
+			{
+				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.StartTime].Value = Util.FromEpoch(newEvent.DtStartTimet);
+				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Duration].Value = newEvent.DurationInSeconds;
+			}
 
 			LogEvent(newEvent.EventId, "event modified");
 		}
@@ -156,9 +164,19 @@ namespace NovaDemo
 		{
 			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
 
-			// TODO: remove row from DataGridView 
+			if (m_eventRows.ContainsKey(endEvent.EventId))
+			{
+				// retrieve row from out dictionary
+				DataGridViewRow row = m_eventRows[endEvent.EventId];
 
-			LogEvent(endEvent.EventId, "event deleted");
+				// remove row from the GUI
+				DGEvent.Rows.Remove(row);
+
+				// remove row from out dictionary
+				m_eventRows.Remove(endEvent.EventId);
+			}
+
+				LogEvent(endEvent.EventId, "event deleted");
 		}
 
 
@@ -166,17 +184,13 @@ namespace NovaDemo
 		{
 			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
 
-			foreach (DataGridViewRow row in DGEvent.Rows)
+			if (m_eventRows.ContainsKey(endEvent.EventId))
 			{
-				Console.WriteLine(row.Cells[(int)DGEventCells.EventId].Value + " == " + endEvent.EventId);
-
-				if (row.Cells[(int)DGEventCells.EventId].Value.Equals(endEvent.EventId))
-				{
-					row.Cells[(int)DGEventCells.Status].Value = "complete";
-				}
+				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
 			}
 
 			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+
 			LogEvent(endEvent.EventId, "end event");
 		}
 
@@ -188,6 +202,7 @@ namespace NovaDemo
 			// TODO: update the status of the row in the DataGridView
 
 			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+
 			LogEvent(endEvent.EventId, "event cancelled");
 		}
 
