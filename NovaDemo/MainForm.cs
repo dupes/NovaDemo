@@ -38,7 +38,7 @@ namespace NovaDemo
 			InitializeComponent();
 
 			m_venLabelBase = LabelVenStatus.Text;
-			LabelVenStatus.Text = m_venLabelBase + " NO EVENTS";
+			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
 
 			m_listener = new Listener.Listener();
 
@@ -47,10 +47,42 @@ namespace NovaDemo
 			// map the names of the endpoints to objects that can handle the request
 			m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
 			m_eventHandlers.Add("startevent", new HandlePayload(HandlePayload_StartEvent));
+			m_eventHandlers.Add("starteventinterval", new HandlePayload(HandlePayload_StartEventInterval));
 			m_eventHandlers.Add("modifyevent", new HandlePayload(HandlePayload_ModifyEvent));
 			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
+			m_eventHandlers.Add("deleteevent", new HandlePayload(HandlePayload_DeleteEvent));
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
 
+			// create headers in the ListView for logging information
+			LVEventLog.Columns.Add("EventId", 150);
+			// take up the remaining space with the second column
+			LVEventLog.Columns.Add("Message", LVEventLog.ClientRectangle.Width - 150);
+		}
+
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			try
+			{
+				m_listener.Start(new Listener.Listener.RequestHandler(HandleRequest));
+			}
+			catch (Exception exception)
+			{
+				Console.Out.WriteLine("Form1_Load exception:\n" + exception.Message);
+			}
+		}
+
+
+		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			try
+			{
+				m_listener.Stop();
+			}
+			catch (Exception exception)
+			{
+				Console.Out.WriteLine("From1_FromClosed exception:\n" + exception.Message);
+			}
 		}
 
 
@@ -80,6 +112,7 @@ namespace NovaDemo
 
 			// LabelVenStatus.Text = m_venLabelBase + " EVENT PENDING";
 			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, "pending");
+			LogEvent(newEvent.EventId, "new event");
 		}
 
 
@@ -96,12 +129,36 @@ namespace NovaDemo
 			}
 
 			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
+			LogEvent(newEvent.EventId, "start event");
+		}
+
+
+		private void HandlePayload_StartEventInterval(string payload)
+		{
+			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
+
+			// the event is already active, just need to log this message
+			LogEvent(newEvent.EventId, "start event interval");
 		}
 
 
 		private void HandlePayload_ModifyEvent(string payload)
 		{
-			// LabelVenStatus.Text = m_venLabelBase + " EVENT MODIFIED";
+			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
+
+			// TODO: retrieve row from DataGridView and update the data
+
+			LogEvent(newEvent.EventId, "event modified");
+		}
+
+
+		private void HandlePayload_DeleteEvent(string payload)
+		{
+			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
+
+			// TODO: remove row from DataGridView 
+
+			LogEvent(endEvent.EventId, "event deleted");
 		}
 
 
@@ -119,39 +176,37 @@ namespace NovaDemo
 				}
 			}
 
-			LabelVenStatus.Text = m_venLabelBase + " EVENT COMPLETE";
+			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LogEvent(endEvent.EventId, "end event");
 		}
 
 
 		private void HandlePayload_CancelEvent(string payload)
 		{
-			LabelVenStatus.Text = m_venLabelBase + " EVENT CANCELLED";
+			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
+
+			// TODO: update the status of the row in the DataGridView
+
+			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LogEvent(endEvent.EventId, "event cancelled");
 		}
 
 
-		private void Form1_Load(object sender, EventArgs e)
+		private void LogEvent(string eventId, string text)
 		{
-			try
-			{
-				m_listener.Start(new Listener.Listener.RequestHandler(HandleRequest));
-			}
-			catch (Exception exception)
-			{
-				Console.Out.WriteLine("Form1_Load exception:\n" + exception.Message);
-			}
+			string[] columnData = new string[2];
+
+			columnData[0] = eventId;
+			columnData[1] = text;
+
+			LVEventLog.Items.Add(new ListViewItem(columnData));
 		}
 
 
-		private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+		private void LVEventLog_SizeChanged(object sender, EventArgs e)
 		{
-			try
-			{
-				m_listener.Stop();
-			}
-			catch (Exception exception)
-			{
-				Console.Out.WriteLine("From1_FromClosed exception:\n" + exception.Message);
-			}
+			// take up the remaining space with the second column
+			LVEventLog.Columns[1].Width = LVEventLog.ClientRectangle.Width - 150;
 		}
 	}
 }
