@@ -12,6 +12,8 @@ namespace NovaDemo
 {
 	public partial class EventLog : UserControl
 	{
+		private DateTime m_lastRecordDateTime;
+
 		// the enum order must match the column indexing of the ViewList
 		private enum EventListViewColumns
 		{
@@ -40,42 +42,45 @@ namespace NovaDemo
 
 		public void LogNewEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(newEvent.EventId, "new event");
+			System.Console.Out.WriteLine("Epoch time : " + newEvent.DtStartTimet);
+			System.Console.Out.WriteLine("Date time : " + Util.FromEpoch(newEvent.DtStartTimet).ToString());
+
+			LogEvent(true, "new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogStartEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(newEvent.EventId, "start event");
+			LogEvent(true, "start event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogStartEventInterval(RequestData.NewEvent newEvent)
 		{
-			LogEvent(newEvent.EventId, "start event interval");
+			LogEvent(false, "start event interval", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogModifyEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(newEvent.EventId, "event modified");
+			LogEvent(true, "event modified", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogEndEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(endEvent.EventId, "end event");
+			LogEvent(true, "end event", endEvent.EventId, "", "");
 		}
 
 		/********************************************************************************/
 
 		public void LogDeleteEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(endEvent.EventId, "event deleted");
+			LogEvent(true, "event deleted", endEvent.EventId, "", "");
 		}
 
 
@@ -83,23 +88,38 @@ namespace NovaDemo
 
 		public void LogCancelEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(endEvent.EventId, "event cancelled");
+			LogEvent(true, "event cancelled", endEvent.EventId, "", "");
 		}
 
 		/********************************************************************************/
 
-		private void LogEvent(string eventId, string text)
+		private void LogEvent(bool calculateDifference, string text, string eventId, string startTime, string durationInSeconds)
 		{
 			string[] columnData = new string[LVEventLog.Columns.Count];
 
-			columnData[(int)EventListViewColumns.LogDate] = DateTime.Now.ToString();
-			columnData[(int)EventListViewColumns.LogDateDifference] = "";
+			// only track with m_recordDateTime when a difference is calculated
+			DateTime recordDateTime = DateTime.Now;
+
+			string difference = "-";
+			if (calculateDifference || true)
+			{
+				if (m_lastRecordDateTime != default(DateTime))
+				{
+					difference = recordDateTime.Subtract(m_lastRecordDateTime).Seconds.ToString();
+				}
+
+				m_lastRecordDateTime = recordDateTime;
+			}
+
+			columnData[(int)EventListViewColumns.LogDate] = recordDateTime.ToString();
+			columnData[(int)EventListViewColumns.LogDateDifference] = difference;
 			columnData[(int)EventListViewColumns.Message] = text;
 			columnData[(int)EventListViewColumns.EventId] = eventId;
-			columnData[(int)EventListViewColumns.StartTime] = "";
-			columnData[(int)EventListViewColumns.Duration] = "";
+			columnData[(int)EventListViewColumns.StartTime] = startTime;
+			columnData[(int)EventListViewColumns.Duration] = durationInSeconds;
 
-			LVEventLog.Items.Add(new ListViewItem(columnData));
+			//LVEventLog.Items.Add(new ListViewItem(columnData));
+			LVEventLog.Items.Insert(0, new ListViewItem(columnData));
 		}
 	}
 }

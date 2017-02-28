@@ -97,6 +97,7 @@
 			// startTime
 			// 
 			this.startTime.Text = "Start Time";
+			this.startTime.Width = 125;
 			// 
 			// duration
 			// 
