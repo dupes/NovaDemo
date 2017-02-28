@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NovaDemo.RequestData
 {
-	class NewEvent
+	public class NewEvent
 	{
 		public int DtStartTimet { get; set; }
 		public int DurationInSeconds { get; set; }
