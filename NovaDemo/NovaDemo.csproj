@@ -51,6 +51,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventLog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EventLog.Designer.cs">
+      <DependentUpon>EventLog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listener\Listener.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -63,6 +69,9 @@
     <Compile Include="RequestData\EndEvent.cs" />
     <Compile Include="RequestData\NewEvent.cs" />
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="EventLog.resx">
+      <DependentUpon>EventLog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

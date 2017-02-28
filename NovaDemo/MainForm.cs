@@ -56,11 +56,6 @@ namespace NovaDemo
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
 
 			m_eventRows = new Dictionary<string, DataGridViewRow>();
-
-			// create headers in the ListView for logging information
-			LVEventLog.Columns.Add("EventId", 150);
-			// take up the remaining space with the second column
-			LVEventLog.Columns.Add("Message", LVEventLog.ClientRectangle.Width - 150);
 		}
 
 
@@ -219,14 +214,7 @@ namespace NovaDemo
 			columnData[0] = eventId;
 			columnData[1] = text;
 
-			LVEventLog.Items.Add(new ListViewItem(columnData));
-		}
-
-
-		private void LVEventLog_SizeChanged(object sender, EventArgs e)
-		{
-			// take up the remaining space with the second column
-			LVEventLog.Columns[1].Width = LVEventLog.ClientRectangle.Width - 150;
+			// LVEventLog.Items.Add(new ListViewItem(columnData));
 		}
 	}
 }
