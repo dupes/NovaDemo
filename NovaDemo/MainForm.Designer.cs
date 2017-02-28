@@ -36,7 +36,7 @@
 			this.LayoutActiveEvent = new System.Windows.Forms.TableLayoutPanel();
 			this.SCMainWindow = new System.Windows.Forms.SplitContainer();
 			this.LabelVenStatus = new System.Windows.Forms.Label();
-			this.eventLogView = new NovaDemo.EventLog();
+			this.UCEventLog = new NovaDemo.EventLog();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SCMainWindow)).BeginInit();
@@ -116,7 +116,7 @@
 			// 
 			// SCMainWindow.Panel2
 			// 
-			this.SCMainWindow.Panel2.Controls.Add(this.eventLogView);
+			this.SCMainWindow.Panel2.Controls.Add(this.UCEventLog);
 			this.SCMainWindow.Size = new System.Drawing.Size(986, 586);
 			this.SCMainWindow.SplitterDistance = 268;
 			this.SCMainWindow.TabIndex = 2;
@@ -134,13 +134,13 @@
 			this.LabelVenStatus.Text = "Ven Event Status:";
 			this.LabelVenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// eventLogView
+			// UCEventLog
 			// 
-			this.eventLogView.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.eventLogView.Location = new System.Drawing.Point(0, 0);
-			this.eventLogView.Name = "eventLogView";
-			this.eventLogView.Size = new System.Drawing.Size(986, 314);
-			this.eventLogView.TabIndex = 0;
+			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.UCEventLog.Location = new System.Drawing.Point(0, 0);
+			this.UCEventLog.Name = "UCEventLog";
+			this.UCEventLog.Size = new System.Drawing.Size(986, 314);
+			this.UCEventLog.TabIndex = 0;
 			// 
 			// MainForm
 			// 
@@ -173,7 +173,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
 		private System.Windows.Forms.SplitContainer SCMainWindow;
-		private EventLog eventLogView;
+		private EventLog UCEventLog;
 	}
 }
 

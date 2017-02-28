@@ -119,7 +119,7 @@ namespace NovaDemo
 			// and track the stored row in our dictionary (the row just added is the last row)
 			m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
 
-			LogEvent(newEvent.EventId, "new event");
+			UCEventLog.LogEvent(newEvent.EventId, "new event");
 		}
 
 
@@ -133,7 +133,7 @@ namespace NovaDemo
 			}
 
 			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
-			LogEvent(newEvent.EventId, "start event");
+			UCEventLog.LogEvent(newEvent.EventId, "start event");
 		}
 
 
@@ -142,7 +142,7 @@ namespace NovaDemo
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
 			// the event is already active, just need to log this message
-			LogEvent(newEvent.EventId, "start event interval");
+			UCEventLog.LogEvent(newEvent.EventId, "start event interval");
 		}
 
 
@@ -156,7 +156,7 @@ namespace NovaDemo
 				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Duration].Value = newEvent.DurationInSeconds;
 			}
 
-			LogEvent(newEvent.EventId, "event modified");
+			UCEventLog.LogEvent(newEvent.EventId, "event modified");
 		}
 
 
@@ -176,7 +176,7 @@ namespace NovaDemo
 				m_eventRows.Remove(endEvent.EventId);
 			}
 
-				LogEvent(endEvent.EventId, "event deleted");
+			UCEventLog.LogEvent(endEvent.EventId, "event deleted");
 		}
 
 
@@ -191,7 +191,7 @@ namespace NovaDemo
 
 			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
 
-			LogEvent(endEvent.EventId, "end event");
+			UCEventLog.LogEvent(endEvent.EventId, "end event");
 		}
 
 
@@ -203,18 +203,7 @@ namespace NovaDemo
 
 			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
 
-			LogEvent(endEvent.EventId, "event cancelled");
-		}
-
-
-		private void LogEvent(string eventId, string text)
-		{
-			string[] columnData = new string[2];
-
-			columnData[0] = eventId;
-			columnData[1] = text;
-
-			// LVEventLog.Items.Add(new ListViewItem(columnData));
+			UCEventLog.LogEvent(endEvent.EventId, "event cancelled");
 		}
 	}
 }

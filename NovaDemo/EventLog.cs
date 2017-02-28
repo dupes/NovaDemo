@@ -16,5 +16,28 @@ namespace NovaDemo
 		{
 			InitializeComponent();
 		}
+
+		/********************************************************************************/
+
+		public void Clear()
+		{
+			LVEventLog.Clear();
+		}
+
+		/********************************************************************************/
+
+		public void LogEvent(string eventId, string text)
+		{
+			string[] columnData = new string[LVEventLog.Columns.Count];
+
+			columnData[0] = "";
+			columnData[1] = text;
+			columnData[2] = eventId;
+			columnData[3] = "";
+			columnData[4] = "";
+			columnData[5] = "";
+
+			LVEventLog.Items.Add(new ListViewItem(columnData));
+		}
 	}
 }
