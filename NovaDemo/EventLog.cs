@@ -42,9 +42,6 @@ namespace NovaDemo
 
 		public void LogNewEvent(RequestData.NewEvent newEvent)
 		{
-			System.Console.Out.WriteLine("Epoch time : " + newEvent.DtStartTimet);
-			System.Console.Out.WriteLine("Date time : " + Util.FromEpoch(newEvent.DtStartTimet).ToString());
-
 			LogEvent(true, "new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 

@@ -10,7 +10,7 @@ namespace NovaDemo
 	{
 		public static DateTime FromEpoch(long secondsFromEpoch)
 		{
-			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch));
+			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch)).ToLocalTime();
 		}
 	}
 }
