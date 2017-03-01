@@ -24,8 +24,6 @@ namespace NovaDemo
 
 		private delegate void HandlePayload(string payload);
 
-		private string m_venLabelBase;
-
 		enum DGEventCells
 		{
 			EventId,
@@ -53,6 +51,7 @@ namespace NovaDemo
 			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
 			m_eventHandlers.Add("deleteevent", new HandlePayload(HandlePayload_DeleteEvent));
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
+			m_eventHandlers.Add("status", new HandlePayload(HandlePayload_Status));
 
 			m_eventRows = new Dictionary<string, DataGridViewRow>();
 		}
@@ -131,7 +130,7 @@ namespace NovaDemo
 				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Status].Value = "active";
 			}
 
-			LabelVenStatusDynamic.Text = m_venLabelBase + " EVENT ACTIVE";
+			LabelVenStatusDynamic.Text = " EVENT ACTIVE";
 			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Green;
 
 			UCEventLog.LogStartEvent(newEvent);
@@ -190,7 +189,7 @@ namespace NovaDemo
 				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
 			}
 
-			LabelVenStatusDynamic.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.Text = " NO ACTIVE EVENTS";
 			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
 
 			UCEventLog.LogEndEvent(endEvent);
@@ -203,11 +202,18 @@ namespace NovaDemo
 
 			// TODO: update the status of the row in the DataGridView
 
-			LabelVenStatusDynamic.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.Text = " NO ACTIVE EVENTS";
 			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
 
 
 			UCEventLog.LogCancelEvent(endEvent);
+		}
+
+
+		private void HandlePayload_Status(string payload)
+		{
+			// just displaying we received the message, not processing the payload
+			LabelEventPollDynamic.Text = DateTime.Now.ToString();
 		}
 	}
 }
