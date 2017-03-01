@@ -87,7 +87,7 @@
 			// logDate
 			// 
 			this.logDate.Text = "Log Date";
-			this.logDate.Width = 77;
+			this.logDate.Width = 125;
 			// 
 			// eventId
 			// 
@@ -106,8 +106,8 @@
 			// 
 			// logDifference
 			// 
-			this.logDifference.Text = "Log Difference (seconds)";
-			this.logDifference.Width = 172;
+			this.logDifference.Text = "Difference (seconds)";
+			this.logDifference.Width = 114;
 			// 
 			// message
 			// 

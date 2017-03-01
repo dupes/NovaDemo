@@ -12,7 +12,7 @@ namespace NovaDemo
 {
 	public partial class EventLog : UserControl
 	{
-		private DateTime m_lastRecordDateTime;
+		private DateTime m_lastRecordDateTime = default(DateTime);
 
 		// the enum order must match the column indexing of the ViewList
 		private enum EventListViewColumns
@@ -30,6 +30,8 @@ namespace NovaDemo
 		public EventLog()
 		{
 			InitializeComponent();
+
+			LVEventLog.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 		}
 
 		/********************************************************************************/

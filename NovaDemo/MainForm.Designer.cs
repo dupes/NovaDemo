@@ -35,14 +35,17 @@
 			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.LayoutActiveEvent = new System.Windows.Forms.TableLayoutPanel();
 			this.SCMainWindow = new System.Windows.Forms.SplitContainer();
-			this.LabelVenStatus = new System.Windows.Forms.Label();
 			this.UCEventLog = new NovaDemo.EventLog();
+			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+			this.LabelVenStatusStatic = new System.Windows.Forms.Label();
+			this.LabelVenStatusDynamic = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SCMainWindow)).BeginInit();
 			this.SCMainWindow.Panel1.SuspendLayout();
 			this.SCMainWindow.Panel2.SuspendLayout();
 			this.SCMainWindow.SuspendLayout();
+			this.flowLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DGEvent
@@ -55,10 +58,10 @@
             this.Duration,
             this.Status});
 			this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.DGEvent.Location = new System.Drawing.Point(3, 23);
+			this.DGEvent.Location = new System.Drawing.Point(3, 33);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
-			this.DGEvent.Size = new System.Drawing.Size(980, 242);
+			this.DGEvent.Size = new System.Drawing.Size(980, 232);
 			this.DGEvent.TabIndex = 0;
 			// 
 			// EventID
@@ -93,12 +96,12 @@
 			this.LayoutActiveEvent.ColumnCount = 1;
 			this.LayoutActiveEvent.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.LayoutActiveEvent.Controls.Add(this.DGEvent, 0, 1);
-			this.LayoutActiveEvent.Controls.Add(this.LabelVenStatus, 0, 0);
+			this.LayoutActiveEvent.Controls.Add(this.flowLayoutPanel1, 0, 0);
 			this.LayoutActiveEvent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutActiveEvent.Location = new System.Drawing.Point(0, 0);
 			this.LayoutActiveEvent.Name = "LayoutActiveEvent";
 			this.LayoutActiveEvent.RowCount = 2;
-			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.LayoutActiveEvent.Size = new System.Drawing.Size(986, 268);
 			this.LayoutActiveEvent.TabIndex = 1;
@@ -121,19 +124,6 @@
 			this.SCMainWindow.SplitterDistance = 268;
 			this.SCMainWindow.TabIndex = 2;
 			// 
-			// LabelVenStatus
-			// 
-			this.LabelVenStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.LabelVenStatus.AutoSize = true;
-			this.LabelVenStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LabelVenStatus.Location = new System.Drawing.Point(3, 0);
-			this.LabelVenStatus.Name = "LabelVenStatus";
-			this.LabelVenStatus.Size = new System.Drawing.Size(155, 20);
-			this.LabelVenStatus.TabIndex = 1;
-			this.LabelVenStatus.Text = "Ven Event Status:";
-			this.LabelVenStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// UCEventLog
 			// 
 			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -141,6 +131,42 @@
 			this.UCEventLog.Name = "UCEventLog";
 			this.UCEventLog.Size = new System.Drawing.Size(986, 314);
 			this.UCEventLog.TabIndex = 0;
+			// 
+			// flowLayoutPanel1
+			// 
+			this.flowLayoutPanel1.Controls.Add(this.LabelVenStatusStatic);
+			this.flowLayoutPanel1.Controls.Add(this.LabelVenStatusDynamic);
+			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(980, 24);
+			this.flowLayoutPanel1.TabIndex = 1;
+			// 
+			// LabelVenStatusStatic
+			// 
+			this.LabelVenStatusStatic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.LabelVenStatusStatic.AutoSize = true;
+			this.LabelVenStatusStatic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LabelVenStatusStatic.Location = new System.Drawing.Point(3, 0);
+			this.LabelVenStatusStatic.Name = "LabelVenStatusStatic";
+			this.LabelVenStatusStatic.Size = new System.Drawing.Size(155, 20);
+			this.LabelVenStatusStatic.TabIndex = 2;
+			this.LabelVenStatusStatic.Text = "Ven Event Status:";
+			this.LabelVenStatusStatic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// LabelVenStatusDynamic
+			// 
+			this.LabelVenStatusDynamic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.LabelVenStatusDynamic.AutoSize = true;
+			this.LabelVenStatusDynamic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.LabelVenStatusDynamic.Location = new System.Drawing.Point(164, 0);
+			this.LabelVenStatusDynamic.Name = "LabelVenStatusDynamic";
+			this.LabelVenStatusDynamic.Size = new System.Drawing.Size(59, 20);
+			this.LabelVenStatusDynamic.TabIndex = 3;
+			this.LabelVenStatusDynamic.Text = "status";
+			this.LabelVenStatusDynamic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// MainForm
 			// 
@@ -154,11 +180,12 @@
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).EndInit();
 			this.LayoutActiveEvent.ResumeLayout(false);
-			this.LayoutActiveEvent.PerformLayout();
 			this.SCMainWindow.Panel1.ResumeLayout(false);
 			this.SCMainWindow.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.SCMainWindow)).EndInit();
 			this.SCMainWindow.ResumeLayout(false);
+			this.flowLayoutPanel1.ResumeLayout(false);
+			this.flowLayoutPanel1.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -167,13 +194,15 @@
 
         private System.Windows.Forms.DataGridView DGEvent;
 		private System.Windows.Forms.TableLayoutPanel LayoutActiveEvent;
-		private System.Windows.Forms.Label LabelVenStatus;
 		private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
 		private System.Windows.Forms.SplitContainer SCMainWindow;
 		private EventLog UCEventLog;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+		private System.Windows.Forms.Label LabelVenStatusStatic;
+		private System.Windows.Forms.Label LabelVenStatusDynamic;
 	}
 }
 

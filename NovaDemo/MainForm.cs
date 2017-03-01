@@ -39,8 +39,7 @@ namespace NovaDemo
 		{
 			InitializeComponent();
 
-			m_venLabelBase = LabelVenStatus.Text;
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.Text = " NO ACTIVE EVENTS";
 
 			m_listener = new Listener.Listener();
 
@@ -132,7 +131,9 @@ namespace NovaDemo
 				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Status].Value = "active";
 			}
 
-			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
+			LabelVenStatusDynamic.Text = m_venLabelBase + " EVENT ACTIVE";
+			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Green;
+
 			UCEventLog.LogStartEvent(newEvent);
 		}
 
@@ -189,7 +190,8 @@ namespace NovaDemo
 				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
 			}
 
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
 
 			UCEventLog.LogEndEvent(endEvent);
 		}
@@ -201,7 +203,9 @@ namespace NovaDemo
 
 			// TODO: update the status of the row in the DataGridView
 
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.Text = m_venLabelBase + " NO ACTIVE EVENTS";
+			LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
+
 
 			UCEventLog.LogCancelEvent(endEvent);
 		}
