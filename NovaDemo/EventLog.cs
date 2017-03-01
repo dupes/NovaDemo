@@ -12,6 +12,7 @@ namespace NovaDemo
 {
 	public partial class EventLog : UserControl
 	{
+		// storing this outside the ListView gives more accurate calculation of time differernce between records
 		private DateTime m_lastRecordDateTime = default(DateTime);
 
 		// the enum order must match the column indexing of the ViewList
@@ -44,42 +45,42 @@ namespace NovaDemo
 
 		public void LogNewEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(true, "new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogStartEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(true, "start event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("start event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogStartEventInterval(RequestData.NewEvent newEvent)
 		{
-			LogEvent(false, "start event interval", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("start event interval", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogModifyEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent(true, "event modified", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("event modified", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
 
 		public void LogEndEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(true, "end event", endEvent.EventId, "", "");
+			LogEvent("end event", endEvent.EventId, "", "");
 		}
 
 		/********************************************************************************/
 
 		public void LogDeleteEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(true, "event deleted", endEvent.EventId, "", "");
+			LogEvent("event deleted", endEvent.EventId, "", "");
 		}
 
 
@@ -87,12 +88,12 @@ namespace NovaDemo
 
 		public void LogCancelEvent(RequestData.EndEvent endEvent)
 		{
-			LogEvent(true, "event cancelled", endEvent.EventId, "", "");
+			LogEvent("event cancelled", endEvent.EventId, "", "");
 		}
 
 		/********************************************************************************/
 
-		private void LogEvent(bool calculateDifference, string text, string eventId, string startTime, string durationInSeconds)
+		private void LogEvent(string text, string eventId, string startTime, string durationInSeconds)
 		{
 			string[] columnData = new string[LVEventLog.Columns.Count];
 
@@ -100,15 +101,12 @@ namespace NovaDemo
 			DateTime recordDateTime = DateTime.Now;
 
 			string difference = "-";
-			if (calculateDifference || true)
+			if (m_lastRecordDateTime != default(DateTime))
 			{
-				if (m_lastRecordDateTime != default(DateTime))
-				{
-					difference = recordDateTime.Subtract(m_lastRecordDateTime).Seconds.ToString();
-				}
-
-				m_lastRecordDateTime = recordDateTime;
+				difference = Convert.ToInt32(recordDateTime.Subtract(m_lastRecordDateTime).TotalSeconds).ToString();
 			}
+
+			m_lastRecordDateTime = recordDateTime;
 
 			columnData[(int)EventListViewColumns.LogDate] = recordDateTime.ToString();
 			columnData[(int)EventListViewColumns.LogDateDifference] = difference;
