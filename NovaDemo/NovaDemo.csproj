@@ -57,7 +57,8 @@
     <Compile Include="EventLog.Designer.cs">
       <DependentUpon>EventLog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Listener\Listener.cs" />
+    <Compile Include="Http\Listener\Listener.cs" />
+    <Compile Include="Http\Request.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

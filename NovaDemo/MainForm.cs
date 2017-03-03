@@ -223,46 +223,14 @@ namespace NovaDemo
 			"    \"parameters\": { }" +
 			"}";
 
-			Post(message);
-		}
-
-
-		private void Post(string jsonMessage)
-		{
-			try
+			string response;
+			if (!Http.Request.Post(message, out response))
 			{
-				WebRequest request = WebRequest.Create(new Uri("http://localhost:8000"));
-
-				request.Method = "POST";
-				request.ContentType = "application/json";
-
-				byte[] payload = Encoding.UTF8.GetBytes(jsonMessage);
-
-				request.ContentLength = payload.Length;
-
-				Stream requestStream = request.GetRequestStream();
-				requestStream.Write(payload, 0, payload.Length);
-
-				requestStream.Close();
-
-				WebResponse response = request.GetResponse();
-
-				Stream responseStream = response.GetResponseStream();
-
-				// Open the stream using a StreamReader for easy access.  
-				StreamReader reader = new StreamReader(responseStream);
-
-				// Read the content
-				string responsePayload = reader.ReadToEnd();
-				System.Console.WriteLine("WebResponse to " + jsonMessage + ":\n" + responsePayload);
-
-				response.Close();
-				responseStream.Close();
-				reader.Close();
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
 			}
-			catch (Exception exception)
+			else
 			{
-				System.Console.WriteLine("Exception posting message \n" + jsonMessage + ":\n" + exception.ToString());
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
 			}
 		}
 	}
