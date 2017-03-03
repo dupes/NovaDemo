@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace NovaDemo
@@ -37,12 +31,14 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void Clear()
 		{
-			LVEventLog.Clear();
+			LVEventLog.Items.Clear();
 		}
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogNewEvent(RequestData.NewEvent newEvent)
 		{
 			LogEvent("new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
@@ -50,6 +46,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogStartEvent(RequestData.NewEvent newEvent)
 		{
 			LogEvent("start event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
@@ -57,6 +54,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogStartEventInterval(RequestData.NewEvent newEvent)
 		{
 			LogEvent("start event interval", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
@@ -64,6 +62,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogModifyEvent(RequestData.NewEvent newEvent)
 		{
 			LogEvent("event modified", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
@@ -71,6 +70,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogEndEvent(RequestData.EndEvent endEvent)
 		{
 			LogEvent("end event", endEvent.EventId, "", "");
@@ -78,6 +78,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogDeleteEvent(RequestData.EndEvent endEvent)
 		{
 			LogEvent("event deleted", endEvent.EventId, "", "");
@@ -86,6 +87,7 @@ namespace NovaDemo
 
 		/********************************************************************************/
 
+		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogCancelEvent(RequestData.EndEvent endEvent)
 		{
 			LogEvent("event cancelled", endEvent.EventId, "", "");

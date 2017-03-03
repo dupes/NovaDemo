@@ -235,6 +235,11 @@ namespace NovaDemo
 			else
 			{
 				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+
+				UCEventLog.Clear();
+
+				LabelVenStatusDynamic.Text = " NO ACTIVE EVENTS";
+				LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
 			}
 		}
 	}
