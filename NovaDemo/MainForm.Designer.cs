@@ -37,21 +37,27 @@
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.LabelVenStatusStatic = new System.Windows.Forms.Label();
 			this.LabelVenStatusDynamic = new System.Windows.Forms.Label();
-			this.SCMainWindow = new System.Windows.Forms.SplitContainer();
+			this.SCMain = new System.Windows.Forms.SplitContainer();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.LabelEventPollStatic = new System.Windows.Forms.Label();
 			this.LabelEventPollDynamic = new System.Windows.Forms.Label();
+			this.TLMainWindow = new System.Windows.Forms.TableLayoutPanel();
+			this.BClearEvents = new System.Windows.Forms.Button();
+			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.label1 = new System.Windows.Forms.Label();
 			this.UCEventLog = new NovaDemo.EventLog();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.SCMainWindow)).BeginInit();
-			this.SCMainWindow.Panel1.SuspendLayout();
-			this.SCMainWindow.Panel2.SuspendLayout();
-			this.SCMainWindow.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.SCMain)).BeginInit();
+			this.SCMain.Panel1.SuspendLayout();
+			this.SCMain.Panel2.SuspendLayout();
+			this.SCMain.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.flowLayoutPanel2.SuspendLayout();
+			this.TLMainWindow.SuspendLayout();
+			this.tableLayoutPanel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DGEvent
@@ -67,7 +73,7 @@
 			this.DGEvent.Location = new System.Drawing.Point(3, 33);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
-			this.DGEvent.Size = new System.Drawing.Size(980, 232);
+			this.DGEvent.Size = new System.Drawing.Size(872, 229);
 			this.DGEvent.TabIndex = 0;
 			// 
 			// EventID
@@ -109,7 +115,7 @@
 			this.LayoutActiveEvent.RowCount = 2;
 			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.LayoutActiveEvent.Size = new System.Drawing.Size(986, 268);
+			this.LayoutActiveEvent.Size = new System.Drawing.Size(878, 265);
 			this.LayoutActiveEvent.TabIndex = 1;
 			// 
 			// flowLayoutPanel1
@@ -119,7 +125,7 @@
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(980, 24);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(872, 24);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// LabelVenStatusStatic
@@ -148,23 +154,23 @@
 			this.LabelVenStatusDynamic.Text = "status";
 			this.LabelVenStatusDynamic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// SCMainWindow
+			// SCMain
 			// 
-			this.SCMainWindow.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SCMainWindow.Location = new System.Drawing.Point(0, 0);
-			this.SCMainWindow.Name = "SCMainWindow";
-			this.SCMainWindow.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			this.SCMain.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.SCMain.Location = new System.Drawing.Point(105, 3);
+			this.SCMain.Name = "SCMain";
+			this.SCMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
-			// SCMainWindow.Panel1
+			// SCMain.Panel1
 			// 
-			this.SCMainWindow.Panel1.Controls.Add(this.LayoutActiveEvent);
+			this.SCMain.Panel1.Controls.Add(this.LayoutActiveEvent);
 			// 
-			// SCMainWindow.Panel2
+			// SCMain.Panel2
 			// 
-			this.SCMainWindow.Panel2.Controls.Add(this.tableLayoutPanel1);
-			this.SCMainWindow.Size = new System.Drawing.Size(986, 586);
-			this.SCMainWindow.SplitterDistance = 268;
-			this.SCMainWindow.TabIndex = 2;
+			this.SCMain.Panel2.Controls.Add(this.tableLayoutPanel1);
+			this.SCMain.Size = new System.Drawing.Size(878, 580);
+			this.SCMain.SplitterDistance = 265;
+			this.SCMain.TabIndex = 2;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -178,7 +184,7 @@
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(986, 314);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(878, 311);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// flowLayoutPanel2
@@ -188,7 +194,7 @@
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(980, 24);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(872, 24);
 			this.flowLayoutPanel2.TabIndex = 1;
 			// 
 			// LabelEventPollStatic
@@ -217,12 +223,66 @@
 			this.LabelEventPollDynamic.Text = "-----";
 			this.LabelEventPollDynamic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// TLMainWindow
+			// 
+			this.TLMainWindow.ColumnCount = 2;
+			this.TLMainWindow.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10.44625F));
+			this.TLMainWindow.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 89.55375F));
+			this.TLMainWindow.Controls.Add(this.SCMain, 1, 0);
+			this.TLMainWindow.Controls.Add(this.tableLayoutPanel2, 0, 0);
+			this.TLMainWindow.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TLMainWindow.Location = new System.Drawing.Point(0, 0);
+			this.TLMainWindow.Name = "TLMainWindow";
+			this.TLMainWindow.RowCount = 1;
+			this.TLMainWindow.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.TLMainWindow.Size = new System.Drawing.Size(986, 586);
+			this.TLMainWindow.TabIndex = 3;
+			// 
+			// BClearEvents
+			// 
+			this.BClearEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.BClearEvents.Location = new System.Drawing.Point(3, 38);
+			this.BClearEvents.Name = "BClearEvents";
+			this.BClearEvents.Size = new System.Drawing.Size(90, 29);
+			this.BClearEvents.TabIndex = 0;
+			this.BClearEvents.Text = "Clear Events";
+			this.BClearEvents.UseVisualStyleBackColor = true;
+			this.BClearEvents.Click += new System.EventHandler(this.BClearEvents_Click);
+			// 
+			// tableLayoutPanel2
+			// 
+			this.tableLayoutPanel2.ColumnCount = 1;
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel2.Controls.Add(this.BClearEvents, 0, 1);
+			this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+			this.tableLayoutPanel2.RowCount = 3;
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(96, 580);
+			this.tableLayoutPanel2.TabIndex = 3;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(3, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(90, 35);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "Requests";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			// 
 			// UCEventLog
 			// 
 			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.UCEventLog.Location = new System.Drawing.Point(3, 33);
 			this.UCEventLog.Name = "UCEventLog";
-			this.UCEventLog.Size = new System.Drawing.Size(980, 278);
+			this.UCEventLog.Size = new System.Drawing.Size(872, 275);
 			this.UCEventLog.TabIndex = 0;
 			// 
 			// MainForm
@@ -230,7 +290,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(986, 586);
-			this.Controls.Add(this.SCMainWindow);
+			this.Controls.Add(this.TLMainWindow);
 			this.Name = "MainForm";
 			this.Text = "Form1";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -239,13 +299,16 @@
 			this.LayoutActiveEvent.ResumeLayout(false);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
-			this.SCMainWindow.Panel1.ResumeLayout(false);
-			this.SCMainWindow.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.SCMainWindow)).EndInit();
-			this.SCMainWindow.ResumeLayout(false);
+			this.SCMain.Panel1.ResumeLayout(false);
+			this.SCMain.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.SCMain)).EndInit();
+			this.SCMain.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel2.ResumeLayout(false);
 			this.flowLayoutPanel2.PerformLayout();
+			this.TLMainWindow.ResumeLayout(false);
+			this.tableLayoutPanel2.ResumeLayout(false);
+			this.tableLayoutPanel2.PerformLayout();
 			this.ResumeLayout(false);
 
         }
@@ -258,7 +321,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-		private System.Windows.Forms.SplitContainer SCMainWindow;
+		private System.Windows.Forms.SplitContainer SCMain;
 		private EventLog UCEventLog;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Label LabelVenStatusStatic;
@@ -267,6 +330,10 @@
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
 		private System.Windows.Forms.Label LabelEventPollStatic;
 		private System.Windows.Forms.Label LabelEventPollDynamic;
+		private System.Windows.Forms.TableLayoutPanel TLMainWindow;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+		private System.Windows.Forms.Button BClearEvents;
+		private System.Windows.Forms.Label label1;
 	}
 }
 
