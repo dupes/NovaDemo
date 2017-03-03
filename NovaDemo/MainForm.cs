@@ -24,6 +24,8 @@ namespace NovaDemo
 
 		private delegate void HandlePayload(string payload);
 
+		private Uri m_novaUri;
+
 		enum DGEventCells
 		{
 			EventId,
@@ -42,6 +44,8 @@ namespace NovaDemo
 			m_listener = new Listener.Listener();
 
 			m_eventHandlers = new Dictionary<string, HandlePayload>();
+
+			m_novaUri = new Uri("http://localhost:8000");
 
 			// map the names of the endpoints to objects that can handle the request
 			m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
@@ -224,7 +228,7 @@ namespace NovaDemo
 			"}";
 
 			string response;
-			if (!Http.Request.Post(message, out response))
+			if (!Http.Request.Post(m_novaUri, message, out response))
 			{
 				System.Console.WriteLine("Error sending message " + message + "\n" + response);
 			}

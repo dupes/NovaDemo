@@ -7,11 +7,11 @@ namespace NovaDemo.Http
 {
 	public class Request
 	{
-		public static bool Post(string jsonMessage, out string responsePayload)
+		public static bool Post(Uri uri, string jsonMessage, out string responsePayload)
 		{
 			try
 			{
-				WebRequest request = WebRequest.Create(new Uri("http://localhost:8000"));
+				WebRequest request = WebRequest.Create(uri);
 
 				request.Method = "POST";
 				request.ContentType = "application/json";
