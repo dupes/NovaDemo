@@ -112,7 +112,7 @@ namespace NovaDemo.Main
 			// assume an event can only start if Nova sends a start event message, so 
 			// the status here will either be complete because the event start time 
 			// plus duration is in the past, or the event will be pending
-			string status = ((Util.FromEpoch(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.UtcNow) ? "complete" : "pending");
+			string status = ((Util.FromEpoch(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.Now) ? "complete" : "pending");
 
 			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
 
