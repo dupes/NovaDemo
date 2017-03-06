@@ -42,7 +42,7 @@ namespace NovaDemo.UserControls
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogNewEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent("new event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("new event", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
@@ -50,7 +50,7 @@ namespace NovaDemo.UserControls
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogStartEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent("start event", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("start event", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
@@ -58,7 +58,7 @@ namespace NovaDemo.UserControls
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogStartEventInterval(RequestData.NewEvent newEvent)
 		{
-			LogEvent("start event interval", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("start event interval", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
@@ -66,7 +66,7 @@ namespace NovaDemo.UserControls
 		[MethodImpl(MethodImplOptions.Synchronized)]
 		public void LogModifyEvent(RequestData.NewEvent newEvent)
 		{
-			LogEvent("event modified", newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
+			LogEvent("event modified", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
 		}
 
 		/********************************************************************************/
