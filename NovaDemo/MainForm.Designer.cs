@@ -47,8 +47,12 @@
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.BClearEvents = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
+			this.CMSDGEvent = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.optInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.optOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.createOptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.createOptToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
 			this.UCEventLog = new NovaDemo.EventLog();
-			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -60,6 +64,7 @@
 			this.flowLayoutPanel2.SuspendLayout();
 			this.TLMainWindow.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
+			this.CMSDGEvent.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DGEvent
@@ -71,10 +76,12 @@
             this.StartTime,
             this.Duration,
             this.Status});
+			this.DGEvent.ContextMenuStrip = this.CMSDGEvent;
 			this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DGEvent.Location = new System.Drawing.Point(3, 33);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
+			this.DGEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DGEvent.Size = new System.Drawing.Size(871, 229);
 			this.DGEvent.TabIndex = 0;
 			this.DGEvent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DGEvent_MouseClick);
@@ -280,6 +287,42 @@
 			this.label1.Text = "Requests";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
+			// CMSDGEvent
+			// 
+			this.CMSDGEvent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optInToolStripMenuItem,
+            this.optOutToolStripMenuItem,
+            this.createOptToolStripMenuItem,
+            this.createOptToolStripMenuItem1});
+			this.CMSDGEvent.Name = "contextMenuStrip1";
+			this.CMSDGEvent.Size = new System.Drawing.Size(144, 76);
+			// 
+			// optInToolStripMenuItem
+			// 
+			this.optInToolStripMenuItem.Name = "optInToolStripMenuItem";
+			this.optInToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.optInToolStripMenuItem.Text = "Opt In";
+			this.optInToolStripMenuItem.Click += new System.EventHandler(this.optInToolStripMenuItem_Click);
+			// 
+			// optOutToolStripMenuItem
+			// 
+			this.optOutToolStripMenuItem.Name = "optOutToolStripMenuItem";
+			this.optOutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.optOutToolStripMenuItem.Text = "Opt Out";
+			this.optOutToolStripMenuItem.Click += new System.EventHandler(this.optOutToolStripMenuItem_Click);
+			// 
+			// createOptToolStripMenuItem1
+			// 
+			this.createOptToolStripMenuItem1.Name = "createOptToolStripMenuItem1";
+			this.createOptToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
+			this.createOptToolStripMenuItem1.Text = "Create Opt ...";
+			this.createOptToolStripMenuItem1.Click += new System.EventHandler(this.createOptToolStripMenuItem1_Click);
+			// 
+			// createOptToolStripMenuItem
+			// 
+			this.createOptToolStripMenuItem.Name = "createOptToolStripMenuItem";
+			this.createOptToolStripMenuItem.Size = new System.Drawing.Size(140, 6);
+			// 
 			// UCEventLog
 			// 
 			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -287,11 +330,6 @@
 			this.UCEventLog.Name = "UCEventLog";
 			this.UCEventLog.Size = new System.Drawing.Size(871, 275);
 			this.UCEventLog.TabIndex = 0;
-			// 
-			// contextMenuStrip1
-			// 
-			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
 			// 
 			// MainForm
 			// 
@@ -317,6 +355,7 @@
 			this.TLMainWindow.ResumeLayout(false);
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel2.PerformLayout();
+			this.CMSDGEvent.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -342,7 +381,11 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 		private System.Windows.Forms.Button BClearEvents;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.ContextMenuStrip CMSDGEvent;
+		private System.Windows.Forms.ToolStripMenuItem optInToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem optOutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripSeparator createOptToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem createOptToolStripMenuItem1;
 	}
 }
 

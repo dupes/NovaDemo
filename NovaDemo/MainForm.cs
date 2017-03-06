@@ -245,24 +245,24 @@ namespace NovaDemo
 
 		private void DGEvent_MouseClick(object sender, MouseEventArgs eventArgs)
 		{
-			if (eventArgs.Button == MouseButtons.Right)
-			{
-				int selectedRowIndex = DGEvent.HitTest(eventArgs.X, eventArgs.Y).RowIndex;
+			//if (eventArgs.Button == MouseButtons.Right)
+			//{
+			//	int selectedRowIndex = DGEvent.HitTest(eventArgs.X, eventArgs.Y).RowIndex;
 
-				if (!(selectedRowIndex < 0))
-				{
-					string eventId = DGEvent.Rows[selectedRowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+			//	if (!(selectedRowIndex < 0))
+			//	{
+			//		string eventId = DGEvent.Rows[selectedRowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
 
-					ContextMenu contextMenu = new ContextMenu();
+			//		ContextMenu contextMenu = new ContextMenu();
 
-					contextMenu.MenuItems.Add(new MenuItem("Opt In", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optIn"); } ));
-					contextMenu.MenuItems.Add(new MenuItem("Opt Out", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optOut"); }));
-					contextMenu.MenuItems.Add("-");
-					contextMenu.MenuItems.Add(new MenuItem("Create Opt ..."));
+			//		contextMenu.MenuItems.Add(new MenuItem("Opt In", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optIn"); } ));
+			//		contextMenu.MenuItems.Add(new MenuItem("Opt Out", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optOut"); }));
+			//		contextMenu.MenuItems.Add("-");
+			//		contextMenu.MenuItems.Add(new MenuItem("Create Opt ..."));
 
-					contextMenu.Show(DGEvent, new Point(eventArgs.X, eventArgs.Y));
-				}
-			}
+			//		contextMenu.Show(DGEvent, new Point(eventArgs.X, eventArgs.Y));
+			//	}
+			//}
 		}
 
 
@@ -304,6 +304,35 @@ namespace NovaDemo
 				// TODO: what should be displayed for the status for "opt in" ?
 				m_eventRows[eventId].Cells[(int)DGEventCells.Status].Value = optType;
 			}
+		}
+
+		private void optInToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
+
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				SendCreatedEvent(eventId, "optIn");
+			}
+		}
+
+		private void optOutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
+
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				SendCreatedEvent(eventId, "optOut");
+			}
+		}
+
+		private void createOptToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
