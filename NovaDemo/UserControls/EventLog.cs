@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
-namespace NovaDemo
+namespace NovaDemo.UserControls
 {
 	public partial class EventLog : UserControl
 	{

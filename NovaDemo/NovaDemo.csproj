@@ -51,18 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventLog.cs">
+    <Compile Include="UserControls\EventLog.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EventLog.Designer.cs">
+    <Compile Include="UserControls\EventLog.Designer.cs">
       <DependentUpon>EventLog.cs</DependentUpon>
     </Compile>
     <Compile Include="Http\Listener\Listener.cs" />
     <Compile Include="Http\Request.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="Main\frmCreateOpt.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Main\frmCreateOpt.Designer.cs">
+      <DependentUpon>frmCreateOpt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Main\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -70,10 +76,13 @@
     <Compile Include="RequestData\EndEvent.cs" />
     <Compile Include="RequestData\NewEvent.cs" />
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="EventLog.resx">
+    <EmbeddedResource Include="UserControls\EventLog.resx">
       <DependentUpon>EventLog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Main\frmCreateOpt.resx">
+      <DependentUpon>frmCreateOpt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Main\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

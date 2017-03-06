@@ -1,4 +1,4 @@
-﻿namespace NovaDemo
+﻿namespace NovaDemo.Main
 {
     partial class MainForm
     {
@@ -52,7 +52,7 @@
 			this.optOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.createOptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.createOptToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-			this.UCEventLog = new NovaDemo.EventLog();
+			this.UCEventLog = new NovaDemo.UserControls.EventLog();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -369,7 +369,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Status;
 		private System.Windows.Forms.SplitContainer SCMain;
-		private EventLog UCEventLog;
+		private UserControls.EventLog UCEventLog;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
 		private System.Windows.Forms.Label LabelVenStatusStatic;
 		private System.Windows.Forms.Label LabelVenStatusDynamic;

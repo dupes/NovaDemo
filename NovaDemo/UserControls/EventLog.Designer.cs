@@ -1,4 +1,4 @@
-﻿namespace NovaDemo
+﻿namespace NovaDemo.UserControls
 {
 	partial class EventLog
 	{

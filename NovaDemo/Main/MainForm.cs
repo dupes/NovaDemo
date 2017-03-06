@@ -12,7 +12,7 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 
-namespace NovaDemo
+namespace NovaDemo.Main
 {
 	public partial class MainForm : Form
 	{
@@ -266,7 +266,7 @@ namespace NovaDemo
 		}
 
 
-		private void SendOptEvent(string eventId, string optType, string optReason)
+		private void SendCreateOpt(string eventId, string optType, string optReason)
 		{
 			string message =
 			"{" +
@@ -278,6 +278,16 @@ namespace NovaDemo
 			"        \"optReason\" : \"" + optReason + "\"" +
 			"    }" +
 			"}";
+
+			string response;
+			if (!Http.Request.Post(m_novaUri, message, out response))
+			{
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
+			}
+			else
+			{
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+			}
 		}
 
 
@@ -332,7 +342,21 @@ namespace NovaDemo
 
 		private void createOptToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
 
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				Main.FormCreateOpt createOptForm = new Main.FormCreateOpt();
+
+				DialogResult result = createOptForm.ShowDialog();
+
+				if (result != DialogResult.OK)
+					return;
+
+				SendCreateOpt(eventId, createOptForm.OptType, createOptForm.OptReason);
+			}
 		}
 	}
 }
