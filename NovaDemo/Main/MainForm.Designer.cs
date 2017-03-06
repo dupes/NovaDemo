@@ -34,12 +34,16 @@
 			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CMSDGEvent = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.optInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.optOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.createOptToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+			this.createOptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.LayoutActiveEvent = new System.Windows.Forms.TableLayoutPanel();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.LabelVenStatusStatic = new System.Windows.Forms.Label();
-			this.LabelVenStatusDynamic = new System.Windows.Forms.Label();
 			this.SCMain = new System.Windows.Forms.SplitContainer();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.UCEventLog = new NovaDemo.UserControls.EventLog();
 			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
 			this.LabelEventPollStatic = new System.Windows.Forms.Label();
 			this.LabelEventPollDynamic = new System.Windows.Forms.Label();
@@ -47,15 +51,9 @@
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.BClearEvents = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
-			this.CMSDGEvent = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.optInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.optOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.createOptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.createOptToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-			this.UCEventLog = new NovaDemo.UserControls.EventLog();
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
+			this.CMSDGEvent.SuspendLayout();
 			this.LayoutActiveEvent.SuspendLayout();
-			this.flowLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.SCMain)).BeginInit();
 			this.SCMain.Panel1.SuspendLayout();
 			this.SCMain.Panel2.SuspendLayout();
@@ -64,7 +62,6 @@
 			this.flowLayoutPanel2.SuspendLayout();
 			this.TLMainWindow.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
-			this.CMSDGEvent.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// DGEvent
@@ -113,6 +110,42 @@
 			this.Status.Name = "Status";
 			this.Status.ReadOnly = true;
 			// 
+			// CMSDGEvent
+			// 
+			this.CMSDGEvent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optInToolStripMenuItem,
+            this.optOutToolStripMenuItem,
+            this.createOptToolStripMenuItem,
+            this.createOptToolStripMenuItem1});
+			this.CMSDGEvent.Name = "contextMenuStrip1";
+			this.CMSDGEvent.Size = new System.Drawing.Size(144, 76);
+			// 
+			// optInToolStripMenuItem
+			// 
+			this.optInToolStripMenuItem.Name = "optInToolStripMenuItem";
+			this.optInToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.optInToolStripMenuItem.Text = "Opt In";
+			this.optInToolStripMenuItem.Click += new System.EventHandler(this.optInToolStripMenuItem_Click);
+			// 
+			// optOutToolStripMenuItem
+			// 
+			this.optOutToolStripMenuItem.Name = "optOutToolStripMenuItem";
+			this.optOutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+			this.optOutToolStripMenuItem.Text = "Opt Out";
+			this.optOutToolStripMenuItem.Click += new System.EventHandler(this.optOutToolStripMenuItem_Click);
+			// 
+			// createOptToolStripMenuItem
+			// 
+			this.createOptToolStripMenuItem.Name = "createOptToolStripMenuItem";
+			this.createOptToolStripMenuItem.Size = new System.Drawing.Size(140, 6);
+			// 
+			// createOptToolStripMenuItem1
+			// 
+			this.createOptToolStripMenuItem1.Name = "createOptToolStripMenuItem1";
+			this.createOptToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
+			this.createOptToolStripMenuItem1.Text = "Create Opt ...";
+			this.createOptToolStripMenuItem1.Click += new System.EventHandler(this.createOptToolStripMenuItem1_Click);
+			// 
 			// LayoutActiveEvent
 			// 
 			this.LayoutActiveEvent.ColumnCount = 1;
@@ -130,39 +163,11 @@
 			// 
 			// flowLayoutPanel1
 			// 
-			this.flowLayoutPanel1.Controls.Add(this.LabelVenStatusStatic);
-			this.flowLayoutPanel1.Controls.Add(this.LabelVenStatusDynamic);
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(871, 24);
 			this.flowLayoutPanel1.TabIndex = 1;
-			// 
-			// LabelVenStatusStatic
-			// 
-			this.LabelVenStatusStatic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.LabelVenStatusStatic.AutoSize = true;
-			this.LabelVenStatusStatic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LabelVenStatusStatic.Location = new System.Drawing.Point(3, 0);
-			this.LabelVenStatusStatic.Name = "LabelVenStatusStatic";
-			this.LabelVenStatusStatic.Size = new System.Drawing.Size(155, 20);
-			this.LabelVenStatusStatic.TabIndex = 2;
-			this.LabelVenStatusStatic.Text = "Ven Event Status:";
-			this.LabelVenStatusStatic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// LabelVenStatusDynamic
-			// 
-			this.LabelVenStatusDynamic.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.LabelVenStatusDynamic.AutoSize = true;
-			this.LabelVenStatusDynamic.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.LabelVenStatusDynamic.Location = new System.Drawing.Point(164, 0);
-			this.LabelVenStatusDynamic.Name = "LabelVenStatusDynamic";
-			this.LabelVenStatusDynamic.Size = new System.Drawing.Size(59, 20);
-			this.LabelVenStatusDynamic.TabIndex = 3;
-			this.LabelVenStatusDynamic.Text = "status";
-			this.LabelVenStatusDynamic.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// SCMain
 			// 
@@ -196,6 +201,14 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 311);
 			this.tableLayoutPanel1.TabIndex = 1;
+			// 
+			// UCEventLog
+			// 
+			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.UCEventLog.Location = new System.Drawing.Point(3, 33);
+			this.UCEventLog.Name = "UCEventLog";
+			this.UCEventLog.Size = new System.Drawing.Size(871, 275);
+			this.UCEventLog.TabIndex = 0;
 			// 
 			// flowLayoutPanel2
 			// 
@@ -287,50 +300,6 @@
 			this.label1.Text = "Requests";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// CMSDGEvent
-			// 
-			this.CMSDGEvent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optInToolStripMenuItem,
-            this.optOutToolStripMenuItem,
-            this.createOptToolStripMenuItem,
-            this.createOptToolStripMenuItem1});
-			this.CMSDGEvent.Name = "contextMenuStrip1";
-			this.CMSDGEvent.Size = new System.Drawing.Size(144, 76);
-			// 
-			// optInToolStripMenuItem
-			// 
-			this.optInToolStripMenuItem.Name = "optInToolStripMenuItem";
-			this.optInToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-			this.optInToolStripMenuItem.Text = "Opt In";
-			this.optInToolStripMenuItem.Click += new System.EventHandler(this.optInToolStripMenuItem_Click);
-			// 
-			// optOutToolStripMenuItem
-			// 
-			this.optOutToolStripMenuItem.Name = "optOutToolStripMenuItem";
-			this.optOutToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
-			this.optOutToolStripMenuItem.Text = "Opt Out";
-			this.optOutToolStripMenuItem.Click += new System.EventHandler(this.optOutToolStripMenuItem_Click);
-			// 
-			// createOptToolStripMenuItem1
-			// 
-			this.createOptToolStripMenuItem1.Name = "createOptToolStripMenuItem1";
-			this.createOptToolStripMenuItem1.Size = new System.Drawing.Size(143, 22);
-			this.createOptToolStripMenuItem1.Text = "Create Opt ...";
-			this.createOptToolStripMenuItem1.Click += new System.EventHandler(this.createOptToolStripMenuItem1_Click);
-			// 
-			// createOptToolStripMenuItem
-			// 
-			this.createOptToolStripMenuItem.Name = "createOptToolStripMenuItem";
-			this.createOptToolStripMenuItem.Size = new System.Drawing.Size(140, 6);
-			// 
-			// UCEventLog
-			// 
-			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.UCEventLog.Location = new System.Drawing.Point(3, 33);
-			this.UCEventLog.Name = "UCEventLog";
-			this.UCEventLog.Size = new System.Drawing.Size(871, 275);
-			this.UCEventLog.TabIndex = 0;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,9 +311,8 @@
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).EndInit();
+			this.CMSDGEvent.ResumeLayout(false);
 			this.LayoutActiveEvent.ResumeLayout(false);
-			this.flowLayoutPanel1.ResumeLayout(false);
-			this.flowLayoutPanel1.PerformLayout();
 			this.SCMain.Panel1.ResumeLayout(false);
 			this.SCMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.SCMain)).EndInit();
@@ -355,7 +323,6 @@
 			this.TLMainWindow.ResumeLayout(false);
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel2.PerformLayout();
-			this.CMSDGEvent.ResumeLayout(false);
 			this.ResumeLayout(false);
 
         }
@@ -371,8 +338,6 @@
 		private System.Windows.Forms.SplitContainer SCMain;
 		private UserControls.EventLog UCEventLog;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-		private System.Windows.Forms.Label LabelVenStatusStatic;
-		private System.Windows.Forms.Label LabelVenStatusDynamic;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
 		private System.Windows.Forms.Label LabelEventPollStatic;
