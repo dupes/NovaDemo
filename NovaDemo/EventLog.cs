@@ -36,6 +36,7 @@ namespace NovaDemo
 		{
 			LVEventLog.Items.Clear();
 		}
+
 		/********************************************************************************/
 
 		[MethodImpl(MethodImplOptions.Synchronized)]

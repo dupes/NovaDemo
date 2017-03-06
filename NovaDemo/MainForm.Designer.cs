@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			this.DGEvent = new System.Windows.Forms.DataGridView();
 			this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,10 +44,11 @@
 			this.LabelEventPollStatic = new System.Windows.Forms.Label();
 			this.LabelEventPollDynamic = new System.Windows.Forms.Label();
 			this.TLMainWindow = new System.Windows.Forms.TableLayoutPanel();
-			this.BClearEvents = new System.Windows.Forms.Button();
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.BClearEvents = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.UCEventLog = new NovaDemo.EventLog();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
 			this.LayoutActiveEvent.SuspendLayout();
 			this.flowLayoutPanel1.SuspendLayout();
@@ -73,8 +75,9 @@
 			this.DGEvent.Location = new System.Drawing.Point(3, 33);
 			this.DGEvent.Name = "DGEvent";
 			this.DGEvent.ReadOnly = true;
-			this.DGEvent.Size = new System.Drawing.Size(872, 229);
+			this.DGEvent.Size = new System.Drawing.Size(871, 229);
 			this.DGEvent.TabIndex = 0;
+			this.DGEvent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DGEvent_MouseClick);
 			// 
 			// EventID
 			// 
@@ -115,7 +118,7 @@
 			this.LayoutActiveEvent.RowCount = 2;
 			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.LayoutActiveEvent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.LayoutActiveEvent.Size = new System.Drawing.Size(878, 265);
+			this.LayoutActiveEvent.Size = new System.Drawing.Size(877, 265);
 			this.LayoutActiveEvent.TabIndex = 1;
 			// 
 			// flowLayoutPanel1
@@ -125,7 +128,7 @@
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(872, 24);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(871, 24);
 			this.flowLayoutPanel1.TabIndex = 1;
 			// 
 			// LabelVenStatusStatic
@@ -157,7 +160,7 @@
 			// SCMain
 			// 
 			this.SCMain.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.SCMain.Location = new System.Drawing.Point(105, 3);
+			this.SCMain.Location = new System.Drawing.Point(106, 3);
 			this.SCMain.Name = "SCMain";
 			this.SCMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
 			// 
@@ -168,7 +171,7 @@
 			// SCMain.Panel2
 			// 
 			this.SCMain.Panel2.Controls.Add(this.tableLayoutPanel1);
-			this.SCMain.Size = new System.Drawing.Size(878, 580);
+			this.SCMain.Size = new System.Drawing.Size(877, 580);
 			this.SCMain.SplitterDistance = 265;
 			this.SCMain.TabIndex = 2;
 			// 
@@ -184,7 +187,7 @@
 			this.tableLayoutPanel1.RowCount = 2;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(878, 311);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 311);
 			this.tableLayoutPanel1.TabIndex = 1;
 			// 
 			// flowLayoutPanel2
@@ -194,7 +197,7 @@
 			this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 3);
 			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-			this.flowLayoutPanel2.Size = new System.Drawing.Size(872, 24);
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(871, 24);
 			this.flowLayoutPanel2.TabIndex = 1;
 			// 
 			// LabelEventPollStatic
@@ -238,17 +241,6 @@
 			this.TLMainWindow.Size = new System.Drawing.Size(986, 586);
 			this.TLMainWindow.TabIndex = 3;
 			// 
-			// BClearEvents
-			// 
-			this.BClearEvents.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.BClearEvents.Location = new System.Drawing.Point(3, 38);
-			this.BClearEvents.Name = "BClearEvents";
-			this.BClearEvents.Size = new System.Drawing.Size(90, 29);
-			this.BClearEvents.TabIndex = 0;
-			this.BClearEvents.Text = "Clear Events";
-			this.BClearEvents.UseVisualStyleBackColor = true;
-			this.BClearEvents.Click += new System.EventHandler(this.BClearEvents_Click);
-			// 
 			// tableLayoutPanel2
 			// 
 			this.tableLayoutPanel2.ColumnCount = 1;
@@ -262,8 +254,19 @@
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(96, 580);
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(97, 580);
 			this.tableLayoutPanel2.TabIndex = 3;
+			// 
+			// BClearEvents
+			// 
+			this.BClearEvents.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.BClearEvents.Location = new System.Drawing.Point(3, 38);
+			this.BClearEvents.Name = "BClearEvents";
+			this.BClearEvents.Size = new System.Drawing.Size(91, 29);
+			this.BClearEvents.TabIndex = 0;
+			this.BClearEvents.Text = "Clear Events";
+			this.BClearEvents.UseVisualStyleBackColor = true;
+			this.BClearEvents.Click += new System.EventHandler(this.BClearEvents_Click);
 			// 
 			// label1
 			// 
@@ -272,7 +275,7 @@
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label1.Location = new System.Drawing.Point(3, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(90, 35);
+			this.label1.Size = new System.Drawing.Size(91, 35);
 			this.label1.TabIndex = 4;
 			this.label1.Text = "Requests";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -282,8 +285,13 @@
 			this.UCEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.UCEventLog.Location = new System.Drawing.Point(3, 33);
 			this.UCEventLog.Name = "UCEventLog";
-			this.UCEventLog.Size = new System.Drawing.Size(872, 275);
+			this.UCEventLog.Size = new System.Drawing.Size(871, 275);
 			this.UCEventLog.TabIndex = 0;
+			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
 			// 
 			// MainForm
 			// 
@@ -334,6 +342,7 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 		private System.Windows.Forms.Button BClearEvents;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 	}
 }
 

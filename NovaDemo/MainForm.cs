@@ -242,5 +242,68 @@ namespace NovaDemo
 				LabelVenStatusDynamic.ForeColor = System.Drawing.Color.Black;
 			}
 		}
+
+		private void DGEvent_MouseClick(object sender, MouseEventArgs eventArgs)
+		{
+			if (eventArgs.Button == MouseButtons.Right)
+			{
+				int selectedRowIndex = DGEvent.HitTest(eventArgs.X, eventArgs.Y).RowIndex;
+
+				if (!(selectedRowIndex < 0))
+				{
+					string eventId = DGEvent.Rows[selectedRowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+					ContextMenu contextMenu = new ContextMenu();
+
+					contextMenu.MenuItems.Add(new MenuItem("Opt In", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optIn"); } ));
+					contextMenu.MenuItems.Add(new MenuItem("Opt Out", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optOut"); }));
+					contextMenu.MenuItems.Add("-");
+					contextMenu.MenuItems.Add(new MenuItem("Create Opt ..."));
+
+					contextMenu.Show(DGEvent, new Point(eventArgs.X, eventArgs.Y));
+				}
+			}
+		}
+
+
+		private void SendOptEvent(string eventId, string optType, string optReason)
+		{
+			string message =
+			"{" +
+			"    \"namespace\": \"ven.eventOpt\"," +
+			"    \"parameters\": {" +
+			"        \"optId\" : \"optId\"," +
+			"        \"eventId\" : \"" + eventId + "\"," +
+			"        \"optType\" : \"" + optType + "\"," +
+			"        \"optReason\" : \"" + optReason + "\"" +
+			"    }" +
+			"}";
+		}
+
+
+		private void SendCreatedEvent(string eventId, string optType)
+		{
+			string message =
+			"{" +
+			"    \"namespace\": \"ven.createdEvent\"," +
+			"    \"parameters\": {" +
+			"        \"eventId\" : \"" + eventId + "\"," +
+			"        \"optType\" : \"" + optType + "\"" +
+			"     }" +
+			"}";
+
+			string response;
+			if (!Http.Request.Post(m_novaUri, message, out response))
+			{
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
+			}
+			else
+			{
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+
+				// TODO: what should be displayed for the status for "opt in" ?
+				m_eventRows[eventId].Cells[(int)DGEventCells.Status].Value = optType;
+			}
+		}
 	}
 }
