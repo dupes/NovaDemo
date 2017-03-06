@@ -81,7 +81,6 @@
 			this.DGEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.DGEvent.Size = new System.Drawing.Size(871, 229);
 			this.DGEvent.TabIndex = 0;
-			this.DGEvent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.DGEvent_MouseClick);
 			// 
 			// EventID
 			// 

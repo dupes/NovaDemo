@@ -185,7 +185,9 @@ namespace NovaDemo.Main
 
 			if (m_eventRows.ContainsKey(endEvent.EventId))
 			{
-				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
+				string text = (m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value.ToString() == "cancelling" ? "cancelled" : "complete");
+
+				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = text;
 			}
 
 			UCEventLog.LogEndEvent(endEvent);
@@ -196,7 +198,8 @@ namespace NovaDemo.Main
 		{
 			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
 
-			// TODO: update the status of the row in the DataGridView
+			// the event isn't cancelled til the end event is received
+			m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "cancelling";
 
 			UCEventLog.LogCancelEvent(endEvent);
 		}
@@ -227,28 +230,6 @@ namespace NovaDemo.Main
 
 				UCEventLog.Clear();
 			}
-		}
-
-		private void DGEvent_MouseClick(object sender, MouseEventArgs eventArgs)
-		{
-			//if (eventArgs.Button == MouseButtons.Right)
-			//{
-			//	int selectedRowIndex = DGEvent.HitTest(eventArgs.X, eventArgs.Y).RowIndex;
-
-			//	if (!(selectedRowIndex < 0))
-			//	{
-			//		string eventId = DGEvent.Rows[selectedRowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
-
-			//		ContextMenu contextMenu = new ContextMenu();
-
-			//		contextMenu.MenuItems.Add(new MenuItem("Opt In", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optIn"); } ));
-			//		contextMenu.MenuItems.Add(new MenuItem("Opt Out", (object s, EventArgs e) => { SendCreatedEvent(eventId, "optOut"); }));
-			//		contextMenu.MenuItems.Add("-");
-			//		contextMenu.MenuItems.Add(new MenuItem("Create Opt ..."));
-
-			//		contextMenu.Show(DGEvent, new Point(eventArgs.X, eventArgs.Y));
-			//	}
-			//}
 		}
 
 
