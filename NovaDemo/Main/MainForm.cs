@@ -12,7 +12,7 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 
-namespace NovaDemo
+namespace NovaDemo.Main
 {
 	public partial class MainForm : Form
 	{
@@ -24,7 +24,7 @@ namespace NovaDemo
 
 		private delegate void HandlePayload(string payload);
 
-		private string m_venLabelBase;
+		private Uri m_novaUri;
 
 		enum DGEventCells
 		{
@@ -39,12 +39,11 @@ namespace NovaDemo
 		{
 			InitializeComponent();
 
-			m_venLabelBase = LabelVenStatus.Text;
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
-
 			m_listener = new Listener.Listener();
 
 			m_eventHandlers = new Dictionary<string, HandlePayload>();
+
+			m_novaUri = new Uri("http://localhost:8000");
 
 			// map the names of the endpoints to objects that can handle the request
 			m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
@@ -54,13 +53,9 @@ namespace NovaDemo
 			m_eventHandlers.Add("cancelevent", new HandlePayload(HandlePayload_CancelEvent));
 			m_eventHandlers.Add("deleteevent", new HandlePayload(HandlePayload_DeleteEvent));
 			m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
+			m_eventHandlers.Add("status", new HandlePayload(HandlePayload_Status));
 
 			m_eventRows = new Dictionary<string, DataGridViewRow>();
-
-			// create headers in the ListView for logging information
-			LVEventLog.Columns.Add("EventId", 150);
-			// take up the remaining space with the second column
-			LVEventLog.Columns.Add("Message", LVEventLog.ClientRectangle.Width - 150);
 		}
 
 
@@ -117,14 +112,14 @@ namespace NovaDemo
 			// assume an event can only start if Nova sends a start event message, so 
 			// the status here will either be complete because the event start time 
 			// plus duration is in the past, or the event will be pending
-			string status = ((Util.FromEpoch(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.UtcNow) ? "complete" : "pending");
+			string status = ((Util.FromEpochToLocalTime(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.Now) ? "complete" : "pending");
 
-			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpoch(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
+			DGEvent.Rows.Add(newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
 
 			// and track the stored row in our dictionary (the row just added is the last row)
 			m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
 
-			LogEvent(newEvent.EventId, "new event");
+			UCEventLog.LogNewEvent(newEvent);
 		}
 
 
@@ -137,8 +132,7 @@ namespace NovaDemo
 				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Status].Value = "active";
 			}
 
-			LabelVenStatus.Text = m_venLabelBase + " EVENT ACTIVE";
-			LogEvent(newEvent.EventId, "start event");
+			UCEventLog.LogStartEvent(newEvent);
 		}
 
 
@@ -147,7 +141,7 @@ namespace NovaDemo
 			RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
 			// the event is already active, just need to log this message
-			LogEvent(newEvent.EventId, "start event interval");
+			UCEventLog.LogStartEventInterval(newEvent);
 		}
 
 
@@ -157,11 +151,11 @@ namespace NovaDemo
 
 			if (m_eventRows.ContainsKey(newEvent.EventId))
 			{
-				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.StartTime].Value = Util.FromEpoch(newEvent.DtStartTimet);
+				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.StartTime].Value = Util.FromEpochToLocalTime(newEvent.DtStartTimet);
 				m_eventRows[newEvent.EventId].Cells[(int)DGEventCells.Duration].Value = newEvent.DurationInSeconds;
 			}
 
-			LogEvent(newEvent.EventId, "event modified");
+			UCEventLog.LogModifyEvent(newEvent);
 		}
 
 
@@ -181,7 +175,7 @@ namespace NovaDemo
 				m_eventRows.Remove(endEvent.EventId);
 			}
 
-				LogEvent(endEvent.EventId, "event deleted");
+			UCEventLog.LogDeleteEvent(endEvent);
 		}
 
 
@@ -191,12 +185,12 @@ namespace NovaDemo
 
 			if (m_eventRows.ContainsKey(endEvent.EventId))
 			{
-				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
+				string text = (m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value.ToString() == "cancelling" ? "cancelled" : "complete");
+
+				m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = text;
 			}
 
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
-
-			LogEvent(endEvent.EventId, "end event");
+			UCEventLog.LogEndEvent(endEvent);
 		}
 
 
@@ -204,29 +198,132 @@ namespace NovaDemo
 		{
 			RequestData.EndEvent endEvent = JsonConvert.DeserializeObject<RequestData.EndEvent>(payload);
 
-			// TODO: update the status of the row in the DataGridView
+			// the event isn't cancelled til the end event is received
+			m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "cancelling";
 
-			LabelVenStatus.Text = m_venLabelBase + " NO ACTIVE EVENTS";
-
-			LogEvent(endEvent.EventId, "event cancelled");
+			UCEventLog.LogCancelEvent(endEvent);
 		}
 
 
-		private void LogEvent(string eventId, string text)
+		private void HandlePayload_Status(string payload)
 		{
-			string[] columnData = new string[2];
+			// just displaying we received the message, not processing the payload
+			LabelEventPollDynamic.Text = DateTime.Now.ToString();
+		}
 
-			columnData[0] = eventId;
-			columnData[1] = text;
+		private void BClearEvents_Click(object sender, EventArgs e)
+		{
+			string message = 
+			"{ " +
+			"    \"namespace\": \"ven.clearEvents\"," +
+			"    \"parameters\": { }" +
+			"}";
 
-			LVEventLog.Items.Add(new ListViewItem(columnData));
+			string response;
+			if (!Http.Request.Post(m_novaUri, message, out response))
+			{
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
+			}
+			else
+			{
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+
+				UCEventLog.Clear();
+			}
 		}
 
 
-		private void LVEventLog_SizeChanged(object sender, EventArgs e)
+		private void SendCreateOpt(string eventId, string optType, string optReason)
 		{
-			// take up the remaining space with the second column
-			LVEventLog.Columns[1].Width = LVEventLog.ClientRectangle.Width - 150;
+			string message =
+			"{" +
+			"    \"namespace\": \"ven.eventOpt\"," +
+			"    \"parameters\": {" +
+			"        \"optId\" : \"optId\"," +
+			"        \"eventId\" : \"" + eventId + "\"," +
+			"        \"optType\" : \"" + optType + "\"," +
+			"        \"optReason\" : \"" + optReason + "\"" +
+			"    }" +
+			"}";
+
+			string response;
+			if (!Http.Request.Post(m_novaUri, message, out response))
+			{
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
+			}
+			else
+			{
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+			}
+		}
+
+
+		private void SendCreatedEvent(string eventId, string optType)
+		{
+			string message =
+			"{" +
+			"    \"namespace\": \"ven.createdEvent\"," +
+			"    \"parameters\": {" +
+			"        \"eventId\" : \"" + eventId + "\"," +
+			"        \"optType\" : \"" + optType + "\"" +
+			"     }" +
+			"}";
+
+			string response;
+			if (!Http.Request.Post(m_novaUri, message, out response))
+			{
+				System.Console.WriteLine("Error sending message " + message + "\n" + response);
+			}
+			else
+			{
+				System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+
+				// TODO: what should be displayed for the status for "opt in" ?
+				m_eventRows[eventId].Cells[(int)DGEventCells.Status].Value = optType;
+			}
+		}
+
+		private void optInToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
+
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				SendCreatedEvent(eventId, "optIn");
+			}
+		}
+
+		private void optOutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
+
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				SendCreatedEvent(eventId, "optOut");
+			}
+		}
+
+		private void createOptToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			int rowIndex = (DGEvent.SelectedRows.Count > 0 ? DGEvent.SelectedRows[0].Index : -1);
+
+			if (!(rowIndex < 0))
+			{
+				string eventId = DGEvent.Rows[rowIndex].Cells[(int)DGEventCells.EventId].Value.ToString();
+
+				Main.FormCreateOpt createOptForm = new Main.FormCreateOpt();
+
+				DialogResult result = createOptForm.ShowDialog();
+
+				if (result != DialogResult.OK)
+					return;
+
+				SendCreateOpt(eventId, createOptForm.OptType, createOptForm.OptReason);
+			}
 		}
 	}
 }

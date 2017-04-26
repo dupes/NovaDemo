@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NovaDemo.RequestData
 {
-	class EndEvent
+	public class EndEvent
 	{
 		public string EventId { get; set; }
 		public string NotifierEventType { get; set; }

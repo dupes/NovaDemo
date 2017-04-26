@@ -8,9 +8,9 @@ namespace NovaDemo
 {
 	class Util
 	{
-		public static DateTime FromEpoch(long secondsFromEpoch)
+		public static DateTime FromEpochToLocalTime(long secondsFromEpoch)
 		{
-			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch));
+			return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(Convert.ToDouble(secondsFromEpoch)).ToLocalTime();
 		}
 	}
 }
