@@ -32,7 +32,7 @@ namespace NovaDemo.Main
 
             m_eventHandlers = new Dictionary<string, HandlePayload>();
 
-            m_novaUri = new Uri("http://localhost:8000");
+            m_novaUri = new Uri("http://localhost:8282");
 
             // map the names of the endpoints to objects that can handle the request
             m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
@@ -55,7 +55,7 @@ namespace NovaDemo.Main
             }
             catch (Exception exception)
             {
-                Console.Out.WriteLine("Form1_Load exception:\n" + exception.Message);
+                UCEventLog.LogMessage("Form1_Load exception: " + exception.Message);
             }
         }
 
@@ -69,7 +69,7 @@ namespace NovaDemo.Main
             }
             catch (Exception exception)
             {
-                Console.Out.WriteLine("From1_FromClosed exception:\n" + exception.Message);
+                UCEventLog.LogMessage("Form1_Load exception: " + exception.Message);
             }
         }
 
@@ -90,7 +90,7 @@ namespace NovaDemo.Main
             }
             else
             {
-                Console.WriteLine("endpoint '" + key + "' did not match key");
+                UCEventLog.LogMessage("unable to handle request; ur no match: " + key);
             }
         }
 
@@ -190,11 +190,11 @@ namespace NovaDemo.Main
             string response;
             if (!Http.Request.Post(m_novaUri, message, out response))
             {
-                System.Console.WriteLine("Error sending message " + message + "\n" + response);
+                UCEventLog.LogMessage("Error sending message: " + message + ", response: " + response);
             }
             else
             {
-                System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+                UCEventLog.LogMessage("Successfully sent message: " + message + ", response: " + response);
             }
         }
     }
