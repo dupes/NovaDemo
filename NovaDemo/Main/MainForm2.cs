@@ -174,7 +174,7 @@ namespace NovaDemo.Main
 
         private void HandlePayload_Status(string payload)
         {
-            toolStripStatusLabelLastPoll.Text = DateTime.Now.ToString();
+            toolStripStatusLabelLastPoll.Text = "Last status poll: " + DateTime.Now.ToString();
         }
 
         /********************************************************************************/

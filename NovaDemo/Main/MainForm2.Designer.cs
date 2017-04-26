@@ -52,17 +52,16 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelLastPoll});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 831);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 830);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1391, 37);
+            this.statusStrip1.Size = new System.Drawing.Size(1391, 38);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabelLastPoll
             // 
             this.toolStripStatusLabelLastPoll.Name = "toolStripStatusLabelLastPoll";
-            this.toolStripStatusLabelLastPoll.Size = new System.Drawing.Size(238, 32);
-            this.toolStripStatusLabelLastPoll.Text = "toolStripStatusLabel1";
+            this.toolStripStatusLabelLastPoll.Size = new System.Drawing.Size(0, 33);
             // 
             // groupBox1
             // 
@@ -70,7 +69,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 831);
+            this.groupBox1.Size = new System.Drawing.Size(274, 830);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Controls";
@@ -100,8 +99,8 @@
             // splitContainerRight.Panel2
             // 
             this.splitContainerRight.Panel2.Controls.Add(this.groupBox3);
-            this.splitContainerRight.Size = new System.Drawing.Size(1117, 831);
-            this.splitContainerRight.SplitterDistance = 382;
+            this.splitContainerRight.Size = new System.Drawing.Size(1117, 830);
+            this.splitContainerRight.SplitterDistance = 381;
             this.splitContainerRight.TabIndex = 4;
             // 
             // groupBox2
@@ -110,7 +109,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1117, 382);
+            this.groupBox2.Size = new System.Drawing.Size(1117, 381);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Events";
@@ -120,7 +119,7 @@
             this.UCEventList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UCEventList.Location = new System.Drawing.Point(3, 27);
             this.UCEventList.Name = "UCEventList";
-            this.UCEventList.Size = new System.Drawing.Size(1111, 352);
+            this.UCEventList.Size = new System.Drawing.Size(1111, 351);
             this.UCEventList.TabIndex = 0;
             // 
             // groupBox3
