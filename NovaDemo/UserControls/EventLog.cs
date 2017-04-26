@@ -25,8 +25,6 @@ namespace NovaDemo.UserControls
 		public EventLog()
 		{
 			InitializeComponent();
-
-			LVEventLog.AutoResizeColumns(ColumnHeaderAutoResizeStyle.None);
 		}
 
 		/********************************************************************************/
