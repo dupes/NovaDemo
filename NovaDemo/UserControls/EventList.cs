@@ -38,16 +38,22 @@ namespace NovaDemo.UserControls
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void NewEvent(RequestData.NewEvent newEvent)
         {
-            // assume an event can only start if Nova sends a start event message, so 
-            // the status here will either be complete because the event start time 
-            // plus duration is in the past, or the event will be pending
-            string status = ((Util.FromEpochToLocalTime(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.Now) ? "complete" : "pending");
+            if (!m_eventRows.ContainsKey(newEvent.EventId))
+            {
+                // assume an event can only start if Nova sends a start event message, so 
+                // the status here will either be complete because the event start time 
+                // plus duration is in the past, or the event will be pending
+                string status = ((Util.FromEpochToLocalTime(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.Now) ? "complete" : "pending");
 
-            DGEvent.Rows.Add(newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
+                DGEvent.Rows.Add(newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
 
-            // and track the stored row in our dictionary (the row just added is the last row)
-            m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
-
+                // and track the stored row in our dictionary (the row just added is the last row)
+                m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
+            }
+            else
+            {
+                ModifyEvent(newEvent);
+            }
         }
 
         /********************************************************************************/

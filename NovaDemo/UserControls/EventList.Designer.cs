@@ -52,6 +52,7 @@
             this.StartTime,
             this.Duration,
             this.Status});
+            this.DGEvent.ContextMenuStrip = this.CMSDGEvent;
             this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGEvent.Location = new System.Drawing.Point(0, 0);
             this.DGEvent.Margin = new System.Windows.Forms.Padding(6);
@@ -97,7 +98,7 @@
             this.createOptToolStripMenuItem,
             this.createOptToolStripMenuItem1});
             this.CMSDGEvent.Name = "contextMenuStrip1";
-            this.CMSDGEvent.Size = new System.Drawing.Size(270, 168);
+            this.CMSDGEvent.Size = new System.Drawing.Size(254, 124);
             // 
             // optInToolStripMenuItem
             // 
