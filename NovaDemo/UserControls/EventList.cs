@@ -30,7 +30,7 @@ namespace NovaDemo.UserControls
         public EventList()
         {
             InitializeComponent();
-            m_novaUri = new Uri("http://localhost:8000");
+            m_novaUri = new Uri("http://localhost:8282");
         }
 
         /********************************************************************************/
