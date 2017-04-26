@@ -16,7 +16,7 @@ namespace NovaDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main.MainForm2());
+            Application.Run(new Main.MainForm());
         }
     }
 }

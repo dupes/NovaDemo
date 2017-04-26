@@ -51,11 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main\MainForm2.cs">
+    <Compile Include="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\MainForm2.Designer.cs">
-      <DependentUpon>MainForm2.cs</DependentUpon>
+    <Compile Include="Main\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\EventList.cs">
       <SubType>UserControl</SubType>
@@ -77,19 +77,13 @@
     <Compile Include="Main\frmCreateOpt.Designer.cs">
       <DependentUpon>frmCreateOpt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Main\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestData\EndEvent.cs" />
     <Compile Include="RequestData\NewEvent.cs" />
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="Main\MainForm2.resx">
-      <DependentUpon>MainForm2.cs</DependentUpon>
+    <EmbeddedResource Include="Main\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\EventList.resx">
       <DependentUpon>EventList.cs</DependentUpon>
@@ -99,9 +93,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main\frmCreateOpt.resx">
       <DependentUpon>frmCreateOpt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Main\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
