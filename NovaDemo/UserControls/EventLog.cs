@@ -14,10 +14,7 @@ namespace NovaDemo.UserControls
 		{
 			LogDate,
 			LogDateDifference,
-			Message,
-			EventId,
-			StartTime,
-			Duration
+			Message
 		}
 
 		/********************************************************************************/
@@ -29,72 +26,8 @@ namespace NovaDemo.UserControls
 
 		/********************************************************************************/
 
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void Clear()
-		{
-			LVEventLog.Items.Clear();
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogNewEvent(RequestData.NewEvent newEvent)
-		{
-			LogEvent("new event", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogStartEvent(RequestData.NewEvent newEvent)
-		{
-			LogEvent("start event", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogStartEventInterval(RequestData.NewEvent newEvent)
-		{
-			LogEvent("start event interval", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogModifyEvent(RequestData.NewEvent newEvent)
-		{
-			LogEvent("event modified", newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet).ToString(), newEvent.DurationInSeconds.ToString());
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogEndEvent(RequestData.EndEvent endEvent)
-		{
-			LogEvent("end event", endEvent.EventId, "", "");
-		}
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogDeleteEvent(RequestData.EndEvent endEvent)
-		{
-			LogEvent("event deleted", endEvent.EventId, "", "");
-		}
-
-
-		/********************************************************************************/
-
-		[MethodImpl(MethodImplOptions.Synchronized)]
-		public void LogCancelEvent(RequestData.EndEvent endEvent)
-		{
-			LogEvent("event cancelled", endEvent.EventId, "", "");
-		}
-
-		/********************************************************************************/
-
-		private void LogEvent(string text, string eventId, string startTime, string durationInSeconds)
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        public void LogMessage(string text)
 		{
 			string[] columnData = new string[LVEventLog.Columns.Count];
 
@@ -112,9 +45,6 @@ namespace NovaDemo.UserControls
 			columnData[(int)EventListViewColumns.LogDate] = recordDateTime.ToString();
 			columnData[(int)EventListViewColumns.LogDateDifference] = difference;
 			columnData[(int)EventListViewColumns.Message] = text;
-			columnData[(int)EventListViewColumns.EventId] = eventId;
-			columnData[(int)EventListViewColumns.StartTime] = startTime;
-			columnData[(int)EventListViewColumns.Duration] = durationInSeconds;
 
 			//LVEventLog.Items.Add(new ListViewItem(columnData));
 			LVEventLog.Items.Insert(0, new ListViewItem(columnData));
