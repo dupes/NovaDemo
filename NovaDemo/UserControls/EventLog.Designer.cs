@@ -34,9 +34,9 @@
             this.logDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.logDifference = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.rtbLogMessage = new System.Windows.Forms.RichTextBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.clearLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rtbLogMessage = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -95,29 +95,30 @@
             this.message.Text = "Message";
             this.message.Width = 180;
             // 
-            // rtbLogMessage
-            // 
-            this.rtbLogMessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbLogMessage.Location = new System.Drawing.Point(0, 0);
-            this.rtbLogMessage.Name = "rtbLogMessage";
-            this.rtbLogMessage.Size = new System.Drawing.Size(1586, 341);
-            this.rtbLogMessage.TabIndex = 0;
-            this.rtbLogMessage.Text = "";
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearLogToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(270, 86);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(216, 42);
             // 
             // clearLogToolStripMenuItem
             // 
             this.clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
-            this.clearLogToolStripMenuItem.Size = new System.Drawing.Size(269, 38);
+            this.clearLogToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
             this.clearLogToolStripMenuItem.Text = "Clear Log";
             this.clearLogToolStripMenuItem.Click += new System.EventHandler(this.clearLogToolStripMenuItem_Click);
+            // 
+            // rtbLogMessage
+            // 
+            this.rtbLogMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbLogMessage.Location = new System.Drawing.Point(0, 0);
+            this.rtbLogMessage.Name = "rtbLogMessage";
+            this.rtbLogMessage.ReadOnly = true;
+            this.rtbLogMessage.Size = new System.Drawing.Size(1586, 341);
+            this.rtbLogMessage.TabIndex = 0;
+            this.rtbLogMessage.Text = "";
             // 
             // EventLog
             // 
