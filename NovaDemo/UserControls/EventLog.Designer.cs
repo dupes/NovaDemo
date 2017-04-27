@@ -28,114 +28,124 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.LVEventLog = new System.Windows.Forms.ListView();
-			this.label1 = new System.Windows.Forms.Label();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.logDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.eventId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.startTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.duration = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.logDifference = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.tableLayoutPanel1.SuspendLayout();
-			this.SuspendLayout();
-			// 
-			// LVEventLog
-			// 
-			this.LVEventLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.components = new System.ComponentModel.Container();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.LVEventLog = new System.Windows.Forms.ListView();
+            this.logDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.logDifference = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.message = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rtbLogMessage = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.LVEventLog);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.rtbLogMessage);
+            this.splitContainer1.Size = new System.Drawing.Size(1586, 662);
+            this.splitContainer1.SplitterDistance = 317;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // LVEventLog
+            // 
+            this.LVEventLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.logDate,
             this.logDifference,
-            this.message,
-            this.eventId,
-            this.startTime,
-            this.duration});
-			this.LVEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LVEventLog.Location = new System.Drawing.Point(3, 23);
-			this.LVEventLog.Name = "LVEventLog";
-			this.LVEventLog.Size = new System.Drawing.Size(787, 318);
-			this.LVEventLog.TabIndex = 0;
-			this.LVEventLog.UseCompatibleStateImageBehavior = false;
-			this.LVEventLog.View = System.Windows.Forms.View.Details;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.Location = new System.Drawing.Point(3, 0);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(787, 20);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "Event Log";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// tableLayoutPanel1
-			// 
-			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.LVEventLog, 0, 1);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(793, 344);
-			this.tableLayoutPanel1.TabIndex = 2;
-			// 
-			// logDate
-			// 
-			this.logDate.Text = "Log Date";
-			this.logDate.Width = 125;
-			// 
-			// eventId
-			// 
-			this.eventId.Text = "Event Id";
-			this.eventId.Width = 116;
-			// 
-			// startTime
-			// 
-			this.startTime.Text = "Start Time";
-			this.startTime.Width = 125;
-			// 
-			// duration
-			// 
-			this.duration.Text = "Duration (seconds)";
-			this.duration.Width = 204;
-			// 
-			// logDifference
-			// 
-			this.logDifference.Text = "Difference (seconds)";
-			this.logDifference.Width = 114;
-			// 
-			// message
-			// 
-			this.message.Text = "Message";
-			// 
-			// EventLog
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.tableLayoutPanel1);
-			this.Name = "EventLog";
-			this.Size = new System.Drawing.Size(793, 344);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
-			this.ResumeLayout(false);
+            this.message});
+            this.LVEventLog.ContextMenuStrip = this.contextMenuStrip1;
+            this.LVEventLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.LVEventLog.FullRowSelect = true;
+            this.LVEventLog.Location = new System.Drawing.Point(0, 0);
+            this.LVEventLog.Margin = new System.Windows.Forms.Padding(6);
+            this.LVEventLog.Name = "LVEventLog";
+            this.LVEventLog.Size = new System.Drawing.Size(1586, 317);
+            this.LVEventLog.TabIndex = 2;
+            this.LVEventLog.UseCompatibleStateImageBehavior = false;
+            this.LVEventLog.View = System.Windows.Forms.View.Details;
+            this.LVEventLog.SelectedIndexChanged += new System.EventHandler(this.LVEventLog_SelectedIndexChanged);
+            // 
+            // logDate
+            // 
+            this.logDate.Text = "Log Date";
+            this.logDate.Width = 149;
+            // 
+            // logDifference
+            // 
+            this.logDifference.Text = "Difference (seconds)";
+            this.logDifference.Width = 259;
+            // 
+            // message
+            // 
+            this.message.Text = "Message";
+            this.message.Width = 180;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clearLogToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(216, 42);
+            // 
+            // clearLogToolStripMenuItem
+            // 
+            this.clearLogToolStripMenuItem.Name = "clearLogToolStripMenuItem";
+            this.clearLogToolStripMenuItem.Size = new System.Drawing.Size(215, 38);
+            this.clearLogToolStripMenuItem.Text = "Clear Log";
+            this.clearLogToolStripMenuItem.Click += new System.EventHandler(this.clearLogToolStripMenuItem_Click);
+            // 
+            // rtbLogMessage
+            // 
+            this.rtbLogMessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbLogMessage.Location = new System.Drawing.Point(0, 0);
+            this.rtbLogMessage.Name = "rtbLogMessage";
+            this.rtbLogMessage.ReadOnly = true;
+            this.rtbLogMessage.Size = new System.Drawing.Size(1586, 341);
+            this.rtbLogMessage.TabIndex = 0;
+            this.rtbLogMessage.Text = "";
+            // 
+            // EventLog
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(6);
+            this.Name = "EventLog";
+            this.Size = new System.Drawing.Size(1586, 662);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.ResumeLayout(false);
 
 		}
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.ListView LVEventLog;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private System.Windows.Forms.ColumnHeader logDate;
-		private System.Windows.Forms.ColumnHeader eventId;
-		private System.Windows.Forms.ColumnHeader startTime;
-		private System.Windows.Forms.ColumnHeader duration;
-		private System.Windows.Forms.ColumnHeader logDifference;
-		private System.Windows.Forms.ColumnHeader message;
-	}
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ListView LVEventLog;
+        private System.Windows.Forms.ColumnHeader logDate;
+        private System.Windows.Forms.ColumnHeader logDifference;
+        private System.Windows.Forms.ColumnHeader message;
+        private System.Windows.Forms.RichTextBox rtbLogMessage;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem clearLogToolStripMenuItem;
+    }
 }

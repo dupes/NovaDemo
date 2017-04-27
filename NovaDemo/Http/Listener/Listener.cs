@@ -12,7 +12,7 @@ namespace NovaDemo.Listener
 {
 	class Listener
 	{
-		private HttpListener m_listener = new HttpListener();
+        private HttpListener m_listener;
 
 		private Thread m_listenerThread = null;
 
@@ -25,17 +25,20 @@ namespace NovaDemo.Listener
 
 		public Listener()
 		{
-			// add endpoints to listener
-			m_listener.Prefixes.Add("http://*:8383/");
 		}
 
+        /********************************************************************************/
 
-		public void Start(RequestHandler handler)
+        public void Start(RequestHandler handler, string port)
 		{
 			m_requestHandler = handler;
 
-			// start the listener first... 
-			m_listener.Start();
+            m_listener = new HttpListener();
+
+            m_listener.Prefixes.Add("http://*:" + port + "/");
+
+            // start the listener first... 
+            m_listener.Start();
 
 			// ...because the thread will exit when the listener is no longer listening
 			m_listenerThread = new Thread(new ThreadStart(ThreadLoop));
@@ -43,23 +46,18 @@ namespace NovaDemo.Listener
 			m_listenerThread.Start();
 		}
 
+        /********************************************************************************/
 
-		public void Stop()
+        public void Stop()
 		{
-			// this will also cause the listener thread to stop
-			m_listener.Stop();
-
-			// TODO: determine if this needs to be done and if so, what way it should be done
-			// attempting to wait while pending requests are being processed
-			while (!m_isRequestHandlerExited) { }
-
 			m_listener.Close();
 
 			m_listenerThread.Join();
 		}
 
+        /********************************************************************************/
 
-		private void ThreadLoop()
+        private void ThreadLoop()
 		{
 			while (m_listener.IsListening)
 			{
@@ -70,8 +68,9 @@ namespace NovaDemo.Listener
 			m_isRequestHandlerExited = true;
 		}
 
+        /********************************************************************************/
 
-		private String GetPayload(HttpListenerRequest request)
+        private String GetPayload(HttpListenerRequest request)
 		{
 			long dataLength = request.ContentLength64;
 
@@ -84,8 +83,9 @@ namespace NovaDemo.Listener
 			return result;
 		}
 
+        /********************************************************************************/
 
-		private void ListenerCallback(IAsyncResult ar)
+        private void ListenerCallback(IAsyncResult ar)
 		{
 			// TODO: what is the proper check here
 			// TODO: add try catch
