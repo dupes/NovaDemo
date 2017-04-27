@@ -22,6 +22,7 @@ namespace NovaDemo.Main
 
         private Uri m_novaUri;
 
+        private frmSettings m_settingsForm = new frmSettings();
         /********************************************************************************/
 
         public MainForm()
@@ -53,7 +54,7 @@ namespace NovaDemo.Main
         {
             try
             {
-                m_listener.Start(new Listener.Listener.RequestHandler(HandleRequest));
+                m_listener.Start(new Listener.Listener.RequestHandler(HandleRequest), "8383");
             }
             catch (Exception exception)
             {
@@ -198,6 +199,31 @@ namespace NovaDemo.Main
             {
                 UCEventLog.LogMessage("Successfully sent message: " + message + ", response: " + response);
             }
+        }
+
+        /********************************************************************************/
+
+        private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DialogResult result = m_settingsForm.ShowDialog();
+
+                if (result != DialogResult.OK)
+                    return;
+
+                m_novaUri = new Uri(m_settingsForm.NovaUri);
+
+                m_listener.Stop();
+
+                m_listener.Start(new Listener.Listener.RequestHandler(HandleRequest), m_settingsForm.ListeningPort);
+            }
+            catch (Exception exception)
+            {
+                UCEventLog.LogMessage("Form1_Load exception: " + exception.Message);
+            }
+
+
         }
     }
 }
