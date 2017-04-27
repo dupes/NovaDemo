@@ -17,6 +17,8 @@ namespace NovaDemo.UserControls
 
         private Uri m_novaUri;
 
+        private ILogMessage m_messageLogger = null;
+
         enum DGEventCells
         {
             EventId,
@@ -31,6 +33,16 @@ namespace NovaDemo.UserControls
         {
             InitializeComponent();
             m_novaUri = new Uri("http://localhost:8282");
+        }
+
+        /********************************************************************************/
+
+        public ILogMessage MessageLogger
+        {
+            set
+            {
+                m_messageLogger = value;
+            }
         }
 
         /********************************************************************************/
@@ -145,11 +157,11 @@ namespace NovaDemo.UserControls
             string response;
             if (!Http.Request.Post(m_novaUri, message, out response))
             {
-                System.Console.WriteLine("Error sending message " + message + "\n" + response);
+                m_messageLogger.LogMessage("Error sending message " + message + "\n" + response);
             }
             else
             {
-                System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+                m_messageLogger.LogMessage("Sending message " + message + " successful:\n" + response);
             }
         }
 
@@ -169,11 +181,11 @@ namespace NovaDemo.UserControls
             string response;
             if (!Http.Request.Post(m_novaUri, message, out response))
             {
-                System.Console.WriteLine("Error sending message " + message + "\n" + response);
+                m_messageLogger.LogMessage("Error sending message " + message + "\n" + response);
             }
             else
             {
-                System.Console.WriteLine("Sending message " + message + " successful:\n" + response);
+                m_messageLogger.LogMessage("Sending message " + message + " successful:\n" + response);
 
                 // TODO: what should be displayed for the status for "opt in" ?
                 m_eventRows[eventId].Cells[(int)DGEventCells.Status].Value = optType;

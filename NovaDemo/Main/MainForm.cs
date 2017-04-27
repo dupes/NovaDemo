@@ -28,11 +28,13 @@ namespace NovaDemo.Main
         {
             InitializeComponent();
 
+            UCEventList.MessageLogger = UCEventLog;
+
             m_listener = new Listener.Listener();
 
             m_eventHandlers = new Dictionary<string, HandlePayload>();
 
-            m_novaUri = new Uri("http://localhost:8282");
+            m_novaUri = new Uri("http://127.0.0.1:8282");
 
             // map the names of the endpoints to objects that can handle the request
             m_eventHandlers.Add("newevent", new HandlePayload(HandlePayload_NewEvent));
