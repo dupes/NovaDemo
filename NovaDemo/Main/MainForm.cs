@@ -105,7 +105,7 @@ namespace NovaDemo.Main
 
             UCEventList.NewEvent(newEvent);
 
-            UCEventLog.LogMessage("new event: " + newEvent.EventId);
+            UCEventLog.LogMessage("new event: " + newEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -116,7 +116,7 @@ namespace NovaDemo.Main
 
             UCEventList.StartEvent(newEvent);
 
-            UCEventLog.LogMessage("start event: " + newEvent.EventId);
+            UCEventLog.LogMessage("start event: " + newEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -126,7 +126,7 @@ namespace NovaDemo.Main
             RequestData.NewEvent newEvent = JsonConvert.DeserializeObject<RequestData.NewEvent>(payload);
 
             // the event is already active, just need to log this message
-            UCEventLog.LogMessage("start event interval: " + newEvent.EventId);
+            UCEventLog.LogMessage("start event interval: " + newEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -137,7 +137,7 @@ namespace NovaDemo.Main
 
             UCEventList.ModifyEvent(newEvent);
 
-            UCEventLog.LogMessage("modify event: " + newEvent.EventId);
+            UCEventLog.LogMessage("modify event: " + newEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -148,7 +148,7 @@ namespace NovaDemo.Main
 
             UCEventList.DeleteEvent(endEvent);
 
-            UCEventLog.LogMessage("remove event: " + endEvent.EventId);
+            UCEventLog.LogMessage("remove event: " + endEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -159,7 +159,7 @@ namespace NovaDemo.Main
 
             UCEventList.EndEvent(endEvent);
 
-            UCEventLog.LogMessage("end event: " + endEvent.EventId);
+            UCEventLog.LogMessage("end event: " + endEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
@@ -170,7 +170,7 @@ namespace NovaDemo.Main
 
             UCEventList.CancelEvent(endEvent);
 
-            UCEventLog.LogMessage("cancel event: " + endEvent.EventId);
+            UCEventLog.LogMessage("cancel event: " + endEvent.EventId + "\n" + payload);
         }
 
         /********************************************************************************/
