@@ -66,7 +66,7 @@ namespace NovaDemo.UserControls
                 if (LVEventLog.SelectedIndices.Count == 0)
                     return;
 
-                string message = LVEventLog.Items[LVEventLog.SelectedItems[0].Index].SubItems[(int)EventListViewColumns.Message].ToString();
+                string message = LVEventLog.Items[LVEventLog.SelectedItems[0].Index].SubItems[(int)EventListViewColumns.Message].Text;
 
                 rtbLogMessage.Text = message;
             });
