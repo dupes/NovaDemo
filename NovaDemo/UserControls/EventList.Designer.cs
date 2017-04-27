@@ -30,15 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.DGEvent = new System.Windows.Forms.DataGridView();
-            this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CMSDGEvent = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.optInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOptToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.createOptToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.EventID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OptState = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGEvent)).BeginInit();
             this.CMSDGEvent.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +52,8 @@
             this.EventID,
             this.StartTime,
             this.Duration,
-            this.Status});
+            this.Status,
+            this.OptState});
             this.DGEvent.ContextMenuStrip = this.CMSDGEvent;
             this.DGEvent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGEvent.Location = new System.Drawing.Point(0, 0);
@@ -61,6 +63,43 @@
             this.DGEvent.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGEvent.Size = new System.Drawing.Size(1065, 549);
             this.DGEvent.TabIndex = 1;
+            // 
+            // CMSDGEvent
+            // 
+            this.CMSDGEvent.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.CMSDGEvent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optInToolStripMenuItem,
+            this.optOutToolStripMenuItem,
+            this.createOptToolStripMenuItem,
+            this.createOptToolStripMenuItem1});
+            this.CMSDGEvent.Name = "contextMenuStrip1";
+            this.CMSDGEvent.Size = new System.Drawing.Size(254, 124);
+            // 
+            // optInToolStripMenuItem
+            // 
+            this.optInToolStripMenuItem.Name = "optInToolStripMenuItem";
+            this.optInToolStripMenuItem.Size = new System.Drawing.Size(253, 38);
+            this.optInToolStripMenuItem.Text = "Opt In";
+            this.optInToolStripMenuItem.Click += new System.EventHandler(this.optInToolStripMenuItem_Click);
+            // 
+            // optOutToolStripMenuItem
+            // 
+            this.optOutToolStripMenuItem.Name = "optOutToolStripMenuItem";
+            this.optOutToolStripMenuItem.Size = new System.Drawing.Size(253, 38);
+            this.optOutToolStripMenuItem.Text = "Opt Out";
+            this.optOutToolStripMenuItem.Click += new System.EventHandler(this.optOutToolStripMenuItem_Click);
+            // 
+            // createOptToolStripMenuItem
+            // 
+            this.createOptToolStripMenuItem.Name = "createOptToolStripMenuItem";
+            this.createOptToolStripMenuItem.Size = new System.Drawing.Size(250, 6);
+            // 
+            // createOptToolStripMenuItem1
+            // 
+            this.createOptToolStripMenuItem1.Name = "createOptToolStripMenuItem1";
+            this.createOptToolStripMenuItem1.Size = new System.Drawing.Size(253, 38);
+            this.createOptToolStripMenuItem1.Text = "Create Opt ...";
+            this.createOptToolStripMenuItem1.Click += new System.EventHandler(this.createOptToolStripMenuItem1_Click);
             // 
             // EventID
             // 
@@ -89,42 +128,12 @@
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
             // 
-            // CMSDGEvent
+            // OptState
             // 
-            this.CMSDGEvent.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.CMSDGEvent.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optInToolStripMenuItem,
-            this.optOutToolStripMenuItem,
-            this.createOptToolStripMenuItem,
-            this.createOptToolStripMenuItem1});
-            this.CMSDGEvent.Name = "contextMenuStrip1";
-            this.CMSDGEvent.Size = new System.Drawing.Size(254, 124);
-            // 
-            // optInToolStripMenuItem
-            // 
-            this.optInToolStripMenuItem.Name = "optInToolStripMenuItem";
-            this.optInToolStripMenuItem.Size = new System.Drawing.Size(269, 38);
-            this.optInToolStripMenuItem.Text = "Opt In";
-            this.optInToolStripMenuItem.Click += new System.EventHandler(this.optInToolStripMenuItem_Click);
-            // 
-            // optOutToolStripMenuItem
-            // 
-            this.optOutToolStripMenuItem.Name = "optOutToolStripMenuItem";
-            this.optOutToolStripMenuItem.Size = new System.Drawing.Size(269, 38);
-            this.optOutToolStripMenuItem.Text = "Opt Out";
-            this.optOutToolStripMenuItem.Click += new System.EventHandler(this.optOutToolStripMenuItem_Click);
-            // 
-            // createOptToolStripMenuItem
-            // 
-            this.createOptToolStripMenuItem.Name = "createOptToolStripMenuItem";
-            this.createOptToolStripMenuItem.Size = new System.Drawing.Size(266, 6);
-            // 
-            // createOptToolStripMenuItem1
-            // 
-            this.createOptToolStripMenuItem1.Name = "createOptToolStripMenuItem1";
-            this.createOptToolStripMenuItem1.Size = new System.Drawing.Size(269, 38);
-            this.createOptToolStripMenuItem1.Text = "Create Opt ...";
-            this.createOptToolStripMenuItem1.Click += new System.EventHandler(this.createOptToolStripMenuItem1_Click);
+            this.OptState.HeaderText = "Opt State";
+            this.OptState.Name = "OptState";
+            this.OptState.ReadOnly = true;
+            this.OptState.Width = 120;
             // 
             // EventList
             // 
@@ -142,14 +151,15 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGEvent;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.ContextMenuStrip CMSDGEvent;
         private System.Windows.Forms.ToolStripMenuItem optInToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator createOptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createOptToolStripMenuItem1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EventID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn OptState;
     }
 }

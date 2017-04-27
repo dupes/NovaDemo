@@ -24,7 +24,8 @@ namespace NovaDemo.UserControls
             EventId,
             StartTime,
             Duration,
-            Status
+            Status,
+            Opt
         }
 
         /********************************************************************************/
@@ -57,7 +58,7 @@ namespace NovaDemo.UserControls
                 // plus duration is in the past, or the event will be pending
                 string status = ((Util.FromEpochToLocalTime(newEvent.DtStartTimet).AddSeconds(newEvent.DurationInSeconds) < DateTime.Now) ? "complete" : "pending");
 
-                DGEvent.Rows.Add(newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet), newEvent.DurationInSeconds, status);
+                DGEvent.Rows.Add(newEvent.EventId, Util.FromEpochToLocalTime(newEvent.DtStartTimet), newEvent.DurationInSeconds, newEvent.Status, "optIn");
 
                 // and track the stored row in our dictionary (the row just added is the last row)
                 m_eventRows[newEvent.EventId] = DGEvent.Rows[DGEvent.Rows.Count - 1];
@@ -74,7 +75,7 @@ namespace NovaDemo.UserControls
         public void CancelEvent(RequestData.EndEvent endEvent)
         {
             // the event isn't cancelled til the end event is received
-            m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "cancelling";
+            m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "canceled";
         }
 
         /********************************************************************************/
@@ -115,9 +116,7 @@ namespace NovaDemo.UserControls
         {
             if (m_eventRows.ContainsKey(endEvent.EventId))
             {
-                string text = (m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value.ToString() == "cancelling" ? "cancelled" : "complete");
-
-                m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = text;
+                m_eventRows[endEvent.EventId].Cells[(int)DGEventCells.Status].Value = "complete";
             }
         }
         
@@ -162,6 +161,7 @@ namespace NovaDemo.UserControls
             else
             {
                 m_messageLogger.LogMessage("Sending message " + message + " successful:\n" + response);
+                m_eventRows[eventId].Cells[(int)DGEventCells.Opt].Value = optType;
             }
         }
 
@@ -187,8 +187,7 @@ namespace NovaDemo.UserControls
             {
                 m_messageLogger.LogMessage("Sending message " + message + " successful:\n" + response);
 
-                // TODO: what should be displayed for the status for "opt in" ?
-                m_eventRows[eventId].Cells[(int)DGEventCells.Status].Value = optType;
+                m_eventRows[eventId].Cells[(int)DGEventCells.Opt].Value = optType;
             }
         }
 

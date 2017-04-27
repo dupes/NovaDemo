@@ -16,5 +16,6 @@ namespace NovaDemo.RequestData
 		public string SignalName { get; set; }
 		public string SignalType { get; set; }
 		public string Version { get; set; }
+        public string Status { get; set; }
 	}
 }
