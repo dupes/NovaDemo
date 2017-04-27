@@ -76,5 +76,13 @@ namespace NovaDemo.UserControls
             else
                 mi.Invoke();
         }
+
+        /********************************************************************************/
+
+        private void clearLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LVEventLog.Items.Clear();
+            rtbLogMessage.Text = "";
+        }
     }
 }
