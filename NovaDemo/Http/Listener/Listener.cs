@@ -85,7 +85,7 @@ namespace NovaDemo.Listener
 
         /********************************************************************************/
 
-        private void ListenerCallback(IAsyncResult ar)
+        private void ListenerCallback(IAsyncResult asyncResult)
 		{
 			// TODO: what is the proper check here
 			// TODO: add try catch
@@ -93,15 +93,49 @@ namespace NovaDemo.Listener
 			// program is shut down if this check isn't here
 			if (m_listener.IsListening)
 			{
-				HttpListener listener = ar.AsyncState as HttpListener;
+				HttpListener listener = asyncResult.AsyncState as HttpListener;
 
-				HttpListenerContext context = listener.EndGetContext(ar);
+				// this call blocks until request received
+				HttpListenerContext context = listener.EndGetContext(asyncResult);
 
-				Console.WriteLine("handling call to url " + context.Request.RawUrl);
-				m_requestHandler(context.Request.Url, GetPayload(context.Request));
+				// create response body, formatted as follows:
+				// {
+				//    "status": {
+				//      "code": number-here
+				//      "message": "message here"
+				//    }
+				// }
+
+				String statusMessage = "";
+
+				// process the request
+				try
+				{
+					Console.WriteLine("handling call to url " + context.Request.RawUrl);
+					m_requestHandler(context.Request.Url, GetPayload(context.Request));
+
+					statusMessage = "{\"status\": { \"code\": 200, \"message\": \"OK\" } }";
+				}
+				catch (Exception exception)
+				{
+					statusMessage = "{\"status\": { \"code\": 500, \"message\": \"" + exception.Message + "\" } }";
+				}
+
+				// populate buffer object for writing to response
+				byte[] buffer = System.Text.Encoding.UTF8.GetBytes(statusMessage);
+
+				// populate response metadata
+				context.Response.ContentLength64 = buffer.Length;
+
+				context.Response.ContentType = "application/json";
+
+				// write body to response
+				Stream responseStream = context.Response.OutputStream;
+
+				responseStream.Write(buffer, 0, buffer.Length);
 
 				// not sending anything in the response
-				context.Response.OutputStream.Close();
+				responseStream.Close();
 			}
 		}
 	}
