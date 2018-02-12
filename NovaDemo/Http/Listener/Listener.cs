@@ -23,6 +23,8 @@ namespace NovaDemo.Listener
 
 		private RequestHandler m_requestHandler = null;
 
+        public const string TEST_HTTP_ERROR = "Test Http Error";
+
 		public Listener()
 		{
 		}
@@ -119,10 +121,19 @@ namespace NovaDemo.Listener
 				catch (Exception exception)
 				{
 					statusMessage = "{\"status\": { \"code\": 500, \"message\": \"" + exception.Message + "\" } }";
-				}
+                    if (exception.Message == TEST_HTTP_ERROR)
+                    {
+                        context.Response.StatusCode = 500;
+                        context.Response.StatusDescription = exception.Message;
+                    }
+                    else
+                    {
+                        statusMessage = "{\"status\": { \"code\": 500, \"message\": \"" + exception.Message + "\" } }";
+                    }
+                }
 
-				// populate buffer object for writing to response
-				byte[] buffer = System.Text.Encoding.UTF8.GetBytes(statusMessage);
+                // populate buffer object for writing to response
+                byte[] buffer = System.Text.Encoding.UTF8.GetBytes(statusMessage);
 
 				// populate response metadata
 				context.Response.ContentLength64 = buffer.Length;
