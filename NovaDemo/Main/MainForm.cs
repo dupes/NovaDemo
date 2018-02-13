@@ -46,6 +46,8 @@ namespace NovaDemo.Main
             m_eventHandlers.Add("deleteevent", new HandlePayload(HandlePayload_DeleteEvent));
             m_eventHandlers.Add("endevent", new HandlePayload(HandlePayload_EndEvent));
             m_eventHandlers.Add("status", new HandlePayload(HandlePayload_Status));
+
+            UpdateUi();
         }
 
         /********************************************************************************/
@@ -79,10 +81,24 @@ namespace NovaDemo.Main
         /********************************************************************************/
 
         /*
-		 * Function called by the listener when a call to an endpoint has been made
-		 */
+        * Function called by the listener when a call to an endpoint has been made
+        */
         private void HandleRequest(Uri uri, string payload)
         {
+            // check for throwing test errors
+            if (checkBoxRespondWithErrors.Checked)
+            {
+                if (radioButtonSendHttpErrors.Checked)
+                {
+                    throw new Exception(Listener.Listener.TEST_HTTP_ERROR);
+                }
+
+                if (radioButtonSendApplicationErrors.Checked)
+                {
+                    throw new Exception("Test Application Error");
+                }
+            }
+
             // get the endpoint name to access dictionary
             string key = Path.GetFileName(uri.AbsolutePath.TrimEnd('/', '\\'));
 
@@ -222,8 +238,23 @@ namespace NovaDemo.Main
             {
                 UCEventLog.LogMessage("Form1_Load exception: " + exception.Message);
             }
+        }
 
+        /********************************************************************************/
 
+        private void UpdateUi()
+        {
+            bool enable = checkBoxRespondWithErrors.Checked;
+
+            radioButtonSendApplicationErrors.Enabled = enable;
+            radioButtonSendHttpErrors.Enabled = enable;
+        }
+
+        /********************************************************************************/
+
+        private void checkBoxRespondWithErrors_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateUi();
         }
     }
 }
