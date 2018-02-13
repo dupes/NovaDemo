@@ -121,14 +121,11 @@ namespace NovaDemo.Listener
                 catch (Exception exception)
                 {
                     statusMessage = "{\"status\": { \"code\": 500, \"message\": \"" + exception.Message + "\" } }";
+
                     if (exception.Message == TEST_HTTP_ERROR)
                     {
                         context.Response.StatusCode = 500;
                         context.Response.StatusDescription = exception.Message;
-                    }
-                    else
-                    {
-                        statusMessage = "{\"status\": { \"code\": 500, \"message\": \"" + exception.Message + "\" } }";
                     }
                 }
 
